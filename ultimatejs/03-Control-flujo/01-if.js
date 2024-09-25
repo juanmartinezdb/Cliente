@@ -60,7 +60,7 @@ for (let animal of animales) {
 }
 
 let a = 0;                      //esto simplemente es el for of, pero con un while
-while (i < animales.length) {
+while (a < animales.length) {
     console.log(animales[a]);
     a++;
 }
