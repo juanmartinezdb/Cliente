@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+
+<script>
+//Request two numbers with prompt:
+let a = parseInt(prompt('Introduce the first number:'));
+let b = parseInt(prompt('Introduce the second number:'));
+let sum = (a,b) => a+b;
+//let sum = (a,b) => Number(a)+Number(b); otra forma de castearlo
+let str = `${a}
++ ${b}
+= ${sum(a,b)}
+`;
+//-Sum and display them in consoloe, with line breaks
+console.log(str);
+
+//-Sum and display them with alert, with line breaks
+alert(str);
+
+//-Sum and display them in the body, with line breaks
+document.body.innerHTML = `<h1>${a}</br>
++ ${b} </br>
+= ${sum(a,b)} </br>
+</h1> </br> <p></p> <h2 id="sum"></h2>` //escribo el <p id="sum"> para el siguiente ejercicio
+    //ya que sustituimos el body en este apartado.
+//- Sum an display them in an existing paragraph, with line breaks
+document.getElementById("sum").innerHTML= `${a} </br>
++${b} </br>
+=${sum(a,b)} </br>
+`;
+document.querySelector("p").innerHTML = `${a} </br>
++${b} </br>
+=${sum(a,b)} </br>
+`;
+
+</script>
+</html>

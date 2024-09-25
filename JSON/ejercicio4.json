@@ -1,0 +1,124 @@
+{
+    "estudiantes": [
+        {
+            "titulacion": "Bachillerato",
+            "nombre": {
+                "nombre": "Paco",
+                "apellidos": "Perez"
+            },
+            "email": "paco@gmail.com",
+            "repite": true,
+            "amigos": [
+                "Mari Carmen Frias",
+                "Eugenio Rodriguez",
+                "Eduardo Parra"
+            ],
+            "asignaturas": [
+                {
+                    "nombre": "matematicas",
+                    "nota": 3
+                },
+                {
+                    "nombre": "Lenguaje",
+                    "nota": 5
+                },
+                {
+                    "nombre": "Ingles",
+                    "nota": 4
+                },
+                {
+                    "nombre": "Biologia",
+                    "nota": 9
+                },
+                {
+                    "nombre": "Fisica y Quimica",
+                    "nota": 9
+                },
+                {
+                    "nombre": "etica",
+                    "nota": 8
+                }
+            ]
+        },
+        {
+            "titulacion": "Bachillerato",
+            "nombre": {
+                "nombre": "Mari Carmen",
+                "apellidos": "Frias"
+            },
+            "email": "mari@gmail.com",
+            "repite": false,
+            "amigos": [
+                "Paco Perez",
+                "Eugenio Rodriguez",
+                "Eduardo Parra"
+            ],
+            "asignaturas": [
+                {
+                    "nombre": "matematicas",
+                    "nota": 8
+                },
+                {
+                    "nombre": "Lenguaje",
+                    "nota": 9
+                },
+                {
+                    "nombre": "Ingles",
+                    "nota": 3
+                },
+                {
+                    "nombre": "Biologia",
+                    "nota": 8
+                },
+                {
+                    "nombre": "Fisica y Quimica",
+                    "nota": 10
+                },
+                {
+                    "nombre": "etica",
+                    "nota": 3
+                }
+            ]
+        },
+        {
+            "titulacion": "Bachillerato",
+            "nombre": {
+                "nombre": "Eugenio",
+                "apellidos": "Rodriguez"
+            },
+            "email": "eu@gmail.com",
+            "repite": false,
+            "amigos": [
+                "Mari Carmen Frias",
+                "Paco Perez",
+                "Eduardo Parra"
+            ],
+            "asignaturas": [
+                {
+                    "nombre": "matematicas",
+                    "nota": 8
+                },
+                {
+                    "nombre": "Lenguaje",
+                    "nota": 7
+                },
+                {
+                    "nombre": "Ingles",
+                    "nota": 7
+                },
+                {
+                    "nombre": "Biologia",
+                    "nota": 8
+                },
+                {
+                    "nombre": "Fisica y Quimica",
+                    "nota": 8
+                },
+                {
+                    "nombre": "etica",
+                    "nota": 10
+                }
+            ]
+        }
+    ]
+}
