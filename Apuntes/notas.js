@@ -26,3 +26,9 @@ for (let data of list){
 }
 console.log('----');
 list.forEach(e=>console.log(`estos son los numeros ${e}`));
+
+//formas de buscar en un html bien sea por id o por clase.
+//console.log("texto...", document.getElementById("caja").value));
+//console.log("texto...", document.querySelector(".caja").value));
+
+
