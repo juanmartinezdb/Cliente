@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 10px;
+            color: black;
+            font-style: normal;
+            background-color: #ddd;
+            margin: auto;
+        }
+
+        form {
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffcc99;
+            border: 1px rgb(15, 2, 15) solid;
+        }
+
+        section>div {
+            display: flex;
+            justify-content: center;
+
+
+        }
+        h1 {
+            color: purple;
+            background-color: orange;
+            font-family: Times, 'Times New Roman', serif;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            padding: auto;
+        }
+
+        label {
+            background-color: brown;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 2px 20px;
+            width:auto;
+            margin: 10px;
+
+        }
+
+        #personales {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+
+        #pedido>div {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 2px;
+
+        }
+
+        #pedido {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        #comentario {
+            display: flex;
+            flex-direction: column;
+
+
+        }
+        #botones {
+            display: flex;
+            flex-direction: row;
+            justify-content:space-around;
+
+        }
+    </style>
+    <title>Formulario marroncete</title>
+</head>
+
+<body>
+    <fieldset>
+        <form>
+            <h1>-Pedido de Pizza-</h1>
+            <section id="personales">
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre">
+                </div>
+                <div>
+                    <label for="direccion">direccion</label>
+                    <input type="text" id="direccion">
+                </div>
+            </section>
+
+            <section id="pedido">
+                <div id="ingredient">
+                    <label for="ingredientes">Ingredientes</label>
+                    <div>
+                        <input type="radio" name="ingredientes">
+                        queso
+                    </div>
+                    <div>
+                        <input type="radio" name="ingredientes">
+                        cebolla
+                    </div>
+                    <div>
+                        <input type="radio" name="ingredientes">
+                        pimiento
+                    </div>
+                </div>
+                <div id="tamano">
+                    <label>Tamaño</label>
+                    <div><input type="checkbox" name="Tamaño">Pequeña</div>
+                    <div><input type="checkbox" name="Tamaño">Mediana</div>
+                    <div><input type="checkbox" name="Tamaño">Grande</div>
+                </div>
+                <div id="tarjet">
+                    <label>Forma de pago</label>
+                    <select name="Tarjeta">
+                        <option value="VISA">VISA</option>
+                        <option value="PAY">PayPal</option>
+                        <option value="PRE">Tarjeta Prepago</option>
+                    </select>
+                </div>
+            </section>
+            <section id="comentario">
+                <div>
+                    <label>Instrucciones especiales</label>
+                </div>
+                <div>
+                    <textarea name="Comentario" id="" cols="30" rows="10"></textarea>
+                </div>
+            </section>
+            <section id="botones">
+                <button type="submit">Enviar</button>
+                <button type="reset">Borrar</button>
+            </section>
+        </form>
+    </fieldset>
+</body>
+
+</html>
