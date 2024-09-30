@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Práctica</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <form action="#" method="post">
+        <fieldset>
+            <legend>Datos personales</legend>
+
+            <!-- D.N.I. -->
+            
+            <div class="form-group">
+                <label for="dni">D.N.I.:</label>
+                <input type="text" id="dni" name="dni" required maxlength="9" pattern="\d{8}[A-Za-z]" placeholder="12345678A">
+            </div>
+
+            <!-- Nombre y Apellidos -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos" required>
+                </div>
+            </div>
+
+            <!-- Sexo -->
+            <div class="form-group">
+                <label>Sexo:</label>
+                <div class="gender-options">
+                    <input type="radio" id="hombre" name="sexo" value="hombre" checked>
+                    <label for="hombre">Hombre</label>
+                    <input type="radio" id="mujer" name="sexo" value="mujer">
+                    <label for="mujer">Mujer</label>
+                    <input type="radio" id="otro" name="sexo" value="otro">
+                    <label for="otro">Otro</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Dirección</legend>
+
+            <!-- Calle -->
+            <div class="form-group">
+                <label for="calle">Calle/Avda.:</label>
+                <input type="text" id="calle" name="calle" required>
+            </div>
+
+            <!-- Población y Provincia -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="poblacion">Población:</label>
+                    <input type="text" id="poblacion" name="poblacion" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="provincia">Provincia:</label>
+                    <select id="provincia" name="provincia">
+                        <option value="">Seleccione una provincia</option>
+                        <option value="almeria">Almería</option>
+                        <option value="cadiz">Cádiz</option>
+                        <option value="cordoba">Córdoba</option>
+                        <option value="granada">Granada</option>
+                        <option value="huelva">Huelva</option>
+                        <option value="jaen">Jaén</option>
+                        <option value="malaga">Málaga</option>
+                        <option value="sevilla">Sevilla</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Práctica en grupo</legend>
+
+            <!-- Archivo -->
+            <div class="form-group">
+                <label for="archivo">Archivo:</label>
+                <input type="file" id="archivo" name="archivo">
+            </div>
+
+            <!-- Tipo de archivo -->
+            <div class="form-group file-options">
+                <input type="checkbox" id="comprimido" name="tipo_archivo[]" value="comprimido">
+                <label for="comprimido">Archivo comprimido</label>
+                <input type="checkbox" id="encriptado" name="tipo_archivo[]" value="encriptado">
+                <label for="encriptado">Archivo encriptado</label>
+            </div>
+
+            <!-- Descripción de la práctica -->
+            <div class="form-group">
+                <label for="descripcion">Descripción de la práctica:</label>
+                <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+            </div>
+        </fieldset>
+
+        <input type="submit" value="Enviar formulario">
+    </form>
+</body>
+
+</html>
