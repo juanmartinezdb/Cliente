@@ -9,34 +9,34 @@
 </head>
 
 <body>
-    <form action="#" method="post">
+    <form action="mailto:jmarmar483m@g.educaand.es" method="post">
         <fieldset>
+            <!-- grupo de datos personales -->
             <legend>Datos personales</legend>
 
-            <!-- D.N.I. -->
-            
+            <!-- dni -->
             <div class="form-group">
                 <label for="dni">D.N.I.:</label>
-                <input type="text" id="dni" name="dni" required maxlength="9" pattern="\d{8}[A-Za-z]" placeholder="12345678A">
+                <input type="text" id="dni" name="dni" required maxlength="9" pattern="\d{8}[A-Za-z]"
+                    placeholder="12345678A">
             </div>
-
-            <!-- Nombre y Apellidos -->
+<!-- agrupado en la misma linea nombre y apelllidos -->
             <div class="form-row">
+                <!-- nombre -->
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required>
                 </div>
-
+                <!-- apellidos -->
                 <div class="form-group">
                     <label for="apellidos">Apellidos:</label>
                     <input type="text" id="apellidos" name="apellidos" required>
                 </div>
             </div>
-
-            <!-- Sexo -->
+            <!-- sexo -->
             <div class="form-group">
                 <label>Sexo:</label>
-                <div class="gender-options">
+                <div class="genero">
                     <input type="radio" id="hombre" name="sexo" value="hombre" checked>
                     <label for="hombre">Hombre</label>
                     <input type="radio" id="mujer" name="sexo" value="mujer">
@@ -47,16 +47,16 @@
             </div>
         </fieldset>
 
+                    <!-- grupo datos de direccion -->
         <fieldset>
             <legend>Dirección</legend>
-
-            <!-- Calle -->
+            <!-- calle -->
             <div class="form-group">
                 <label for="calle">Calle/Avda.:</label>
                 <input type="text" id="calle" name="calle" required>
             </div>
 
-            <!-- Población y Provincia -->
+            <!-- poblacion y provincia -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="poblacion">Población:</label>
@@ -80,24 +80,25 @@
             </div>
         </fieldset>
 
+        <!-- campo de practica de grupo -->
         <fieldset>
             <legend>Práctica en grupo</legend>
 
-            <!-- Archivo -->
+            <!-- archivo para subir -->
             <div class="form-group">
                 <label for="archivo">Archivo:</label>
                 <input type="file" id="archivo" name="archivo">
             </div>
 
-            <!-- Tipo de archivo -->
-            <div class="form-group file-options">
+            <!-- Tipo de archivo (se mete un array para mandar los dos)-->
+            <div class="form-group archivos">
                 <input type="checkbox" id="comprimido" name="tipo_archivo[]" value="comprimido">
                 <label for="comprimido">Archivo comprimido</label>
                 <input type="checkbox" id="encriptado" name="tipo_archivo[]" value="encriptado">
                 <label for="encriptado">Archivo encriptado</label>
             </div>
 
-            <!-- Descripción de la práctica -->
+            <!-- Descripción de la práctica (textarea) -->
             <div class="form-group">
                 <label for="descripcion">Descripción de la práctica:</label>
                 <textarea id="descripcion" name="descripcion" rows="4"></textarea>

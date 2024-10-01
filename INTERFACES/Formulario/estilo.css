@@ -1,16 +1,22 @@
 * {
+    /* el box-sizing: border-box hacemos que el padding y 
+    el border formen a pasar parte del calculo del ancho de la caja
+    es para el tema de que se adapte mejor a estrujar y ensanchar */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
+    /* letra fondo y padding del bloque general del html */
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f0f2f5;
     padding: 20px;
 }
 
 form {
+    /* mismo color y una sombrita detras para que resalte y borde
+    un poco redondeado para que sea mas amigable */
     max-width: 800px;
     margin: 0 auto;
     background-color: #fff;
@@ -20,6 +26,8 @@ form {
 }
 
 fieldset {
+    /* border redondeados y margen bajo para espaciar y diferenciar
+    cada campo que no quede apretado*/
     border: 1px solid #ccc;
     margin-bottom: 30px;
     padding: 20px;
@@ -38,13 +46,14 @@ legend {
     margin-bottom: 15px;
 }
 
+/* las etiquetas */
 .form-group label {
     display: block;
     margin-bottom: 5px;
     color: #333;
     font-weight: bold;
 }
-
+/* como van a ser los recuadros de entrada de texto */
 .form-group input[type="text"],
 .form-group input[type="file"],
 .form-group select,
@@ -55,11 +64,10 @@ legend {
     border-radius: 5px;
 }
 
-.form-group textarea {
-    resize: vertical;
-}
 
-/* Filas con múltiples columnas */
+/* Filas con múltiples columnas 
+usamos un flex para ajustar los espacios y cuando se tienen
+que plegar y saltar a la siguiente linea (repasar flex)*/
 .form-row {
     display: flex;
     flex-wrap: wrap;
@@ -98,32 +106,32 @@ legend {
 }
 
 /* Opciones de sexo */
-.gender-options {
+.genero {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.gender-options input[type="radio"] {
+.genero input[type="radio"] {
     margin-right: 5px;
 }
 
-.gender-options label {
+.genero label {
     margin-right: 15px;
 }
 
 /* Opciones de archivo */
-.file-options {
+.archivos {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.file-options input[type="checkbox"] {
+.archivos input[type="checkbox"] {
     margin-right: 5px;
 }
 
-.file-options label {
+.archivos label {
     margin-right: 15px;
 }
 
@@ -143,13 +151,3 @@ input[type="submit"]:hover {
     background-color: #357E99;
 }
 
-/* Diseño responsive */
-@media (max-width: 800px) {
-    .form-row {
-        flex-direction: column;
-    }
-
-    .form-row .form-group {
-        margin-right: 0;
-    }
-}

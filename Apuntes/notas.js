@@ -31,4 +31,4 @@ list.forEach(e=>console.log(`estos son los numeros ${e}`));
 //console.log("texto...", document.getElementById("caja").value));
 //console.log("texto...", document.querySelector(".caja").value));
 
-
+// Any signfica cualquier tipo . 
