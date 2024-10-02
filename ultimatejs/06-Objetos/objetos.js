@@ -192,4 +192,53 @@ for (llave in punto){
     ) 
 
 //Date
- 
+ const ahora = new Date(); //fecha actual de la maquina
+const fecha = new Date('December 11 1986 14:15 GMT-0300');
+console.log(fecha);
+
+const fecha2 = new Date(1986, 11, 25, 14, 30); //año, mes, dia, hora, minutos, segundos, milisegundos...
+const fecha3 = new Date(1986, 11, 25, 14+15, 30); //nos imprime al dia siguiente al ser hora "29"
+
+console.log('datestring  '+ fecha3.toDateString()); //formato corto sencillo
+console.log('ISOstring  '+ fecha3.toISOString()); //este es el formato que se usa para enviar fechas por servidor
+console.log('TimeString  '+ fecha3.toTimeString()); //hora y uso
+
+fecha3.getDate() //los .get nos van a dar lo que queramos de la fecha en este caso es fecha.
+fecha3.setDate() // los .set podemos modificiar el campo que queramos en este caso es el Date.
+
+//String
+
+const salutacion = "Hola Mundo!";
+
+console.log(salutacion.length);
+console.log(salutacion.indexOf("Mu")); //dice el indice del primer caracter
+console.log(salutacion.includes("M")); //true o false si está
+console.log(salutacion.toLowerCase()); //y toUpperCase
+console.log(salutacion.substring(0,4)); // inicio y fin para el substring
+let salutacion2 =salutacion.replace("Mundo","Planeto"); //lo cambia pero hay que guardarlo en un sitio
+
+const espacios = "   Hola     Mundo   ";
+espacios.trimStart(); //para controlar los espacios
+espacios.trimEnd();
+espacios.trim();
+
+//Caracteres de escape
+
+/*
+\n nueva linea
+\t tabulacion
+\' 
+\"
+\\
+*/ 
+
+//Template Strings
+const nombrito = 'lerele'
+const sall = `hola mundo! ${nombrito} 
+se ha quedado buena tarde`
+
+//lo bueno es que se pueden usar como plantilla y hacerla una funcion
+function plantilla (nombrito){
+    return `Hola ${nombrito}!`
+}
+console.log(plantilla('Pepe'));
