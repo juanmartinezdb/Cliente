@@ -1,4 +1,4 @@
-let unCamelize = (cadena, char='')=>{
+let unCamelize = (cadena, char=' ')=>{
     let salida = cadena;
     for (letra of salida){
         if (letra ===letra.toUpperCase()){
