@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let grades = [];
+    let entrada = 0;
+    while (!isNaN(Number(entrada))) {
+        entrada = +prompt('Introduzca una nota');
+            grades.push(entrada);            
+        }
+    
+    grades.pop();
+    let average = grades.reduce((ac, e)=>ac+e, 0)/grades.length;
+ 
+    console.log(average);
+
+</script>
+
+</html>
