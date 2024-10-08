@@ -1,4 +1,4 @@
-let libros = [
+const libros = [
     {
         "titulo": "Hijos de la mente",
         "genero": [
