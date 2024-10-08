@@ -37,7 +37,7 @@ let libros = [
         ],
         "pag": 384,
         "fecha": "1987-09-04",
-        "leido": false,
+        "leido": true,
         "web": ""
     },
     {
@@ -46,7 +46,7 @@ let libros = [
         "autor": ["Rebecca Yarros"],
         "pag": 736,
         "fecha": "2023-11-15",
-        "leido": false,
+        "leido": true,
         "web": ""
     },
     {
@@ -75,7 +75,7 @@ let libros = [
         "pag": 320,
         "fecha": "2014-08-19",
         "leido": true,
-        "web": "dnd.wizards.com/"
+        "web": ""
     }
 ];
 
@@ -117,4 +117,6 @@ libros.map(e=>e.genero).forEach(e=>{
 
    // 5. Title of the books read, ordered by date of publishing.
    //Se usa el new Date, porque si no son cadenas de Texto, y no se pueden restar, entonces tenemos que darles un formato que sort pueda operar
-    libros.filter(e=> e.leido).sort((a,b)=>new Date(a.fecha) - new Date(b.fecha)).forEach(e=> console.log(e.titulo, e.leido, e.fecha));
+    libros.filter(e=> e.leido)
+        .sort((a,b)=>new Date(a.fecha) - new Date(b.fecha))
+        .forEach(e=> console.log(e.titulo, e.leido, e.fecha));
