@@ -50,7 +50,7 @@ const libros = [
         "web": ""
     },
     {
-        "titulo": "Evangelion tomo 1",
+        "titulo": "Neon Génesis Evangelion 1 (tomo)",
         "genero": [
             "Manga",
             "Ciencia ficción"
