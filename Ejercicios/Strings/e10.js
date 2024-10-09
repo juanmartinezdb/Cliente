@@ -2,7 +2,7 @@ let camelize = (cadena) => {
     let salida ='';
     words = cadena.split(' ');
     for(w of words){
-        salida+= w[0].toUpperCase()+w.slice(1);
+        salida+= w[0].toUpperCase()+w.slice(1)+' ';
     }
     return salida;
 }
