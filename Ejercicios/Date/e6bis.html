@@ -7,11 +7,11 @@
     <title>Document</title>
     <style>
         .lectivo {
-            background-color: green;
+            background-color: rgb(159, 219, 159);
         }
 
         .festivo {
-            background-color: brown;
+            background-color: rgb(211, 133, 133);
         }
 
         .finde {
@@ -19,7 +19,7 @@
         }
 
         .out {
-            background-color: grey;
+            background-color: rgb(212, 212, 212);
         }
     </style>
 </head>
@@ -55,7 +55,8 @@
         new Date("2025-2-27"),
         new Date("2025-2-28")
     ]; //se podria haber hecho con un map y me ahorraba un ratillo (la inspiración llegó tarde)
-        
+festivosCadena = festivos.map(f=> f.toDateString());
+console.log(festivosCadena);
     let diaSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
     let hoy = new Date();
@@ -82,9 +83,9 @@
             //al tr de cabeza le metemos cada dia de la semana.
             for (let i = 0; i < 7; i++) {
                 let th = document.createElement('th');
-                th.textContent = diaSemana[i+1];
-                if (i==6){
-                    th.textContent = diaSemana[0];  
+                th.textContent = diaSemana[i + 1];
+                if (i == 6) {
+                    th.textContent = diaSemana[0];
                 }
                 trCabeza.appendChild(th);
             }
@@ -97,7 +98,7 @@
 
             //calculamos los huecos del principio de mes sin nada
             let diaSem1 = test.getDay();
-            let huecos = (diaSem1 === 0) ? 6 : diaSem1 - 1; //si es domingo va al final,
+            let huecos = (diaSem1) ? diaSem1 - 1 : 6; //si es domingo va al final,
             // si no como el lunes es 1 los que sobren se meten de huecos vacios
             for (let i = 0; i < huecos; i++) {
                 let td = document.createElement('td');
@@ -105,7 +106,7 @@
                 contaCelda++;
             }
             //repasar apuntes HOLA MUNDO de ultimate javascript, suma de dias y dias negativos dia 0.
-            let numDiasMes = new Date(test.getFullYear(), test.getMonth() + 1, 0).getDate(); 
+            let numDiasMes = new Date(test.getFullYear(), test.getMonth() + 1, 0).getDate();
 
             for (let dia = 1; dia <= numDiasMes; dia++) {
                 let fechaDia = new Date(test.getFullYear(), test.getMonth(), dia);
@@ -116,13 +117,21 @@
                     contaCelda = 0; // Reiniciamos el contador al iniciar una nueva fila
                 }
                 let td = document.createElement('td');
-                td.textContent = dia + '\n' + diaSemana[fechaDia.getDay()]; 
+                td.textContent = dia + '\n' + diaSemana[fechaDia.getDay()];
 
                 //marcamos segun el dia (tenia que haber hecho el if al reves, pero bueno)
                 if (fechaDia >= hoy && fechaDia <= fin) {
-                    // Esto no he tenido narices de compararlo yo, es chatgpt total,
                     // intente un  festivos.includes(fechaDia) pero me dice que tarari
-                    let esFestivo = festivos.some(festivo => festivo.getTime() === fechaDia.getTime());
+                    //lo del for he intentado hacerlo con metodos del array pero no lo saco. 
+                    let diaCadena = fechaDia.toDateString();
+                    let esFestivo= false;
+                    for (festivo of festivosCadena ){
+                        if (festivo===diaCadena){
+                            esFestivo = true;
+                            console.log(diaCadena);
+                            console.log(esFestivo);
+                        }
+                    }
                     if (esFestivo) {
                         td.classList.add('festivo');
                     } else if (fechaDia.getDay() == 0 || fechaDia.getDay() == 6) {
@@ -138,7 +147,7 @@
                 contaCelda++;
             }
             //rellenar los huecos vacios para que no se descuadre al final
-            while (contaCelda < 7 && contaCelda != 0) { 
+            while (contaCelda < 7 && contaCelda != 0) {
                 let td = document.createElement('td');
                 tr.appendChild(td);
                 contaCelda++;
