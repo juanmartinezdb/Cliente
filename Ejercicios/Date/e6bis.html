@@ -55,14 +55,15 @@
         new Date("2025-2-27"),
         new Date("2025-2-28")
     ]; //se podria haber hecho con un map y me ahorraba un ratillo (la inspiración llegó tarde)
-festivosCadena = festivos.map(f=> f.toDateString());
-console.log(festivosCadena);
+    festivosCadena = festivos.map(f => f.toDateString());
+    console.log(festivosCadena);
+    //arranco en domingo para que luego el td sea mas facil porque el getDay() empieza en domingo.
     let diaSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
-
     let hoy = new Date();
     let fin = new Date("2025-4-11");
     let cont = 0;
     let contaCelda = 0;
+
     let tablaLectivos = () => {
         let calendario = document.querySelector(".calendario");
         let test = new Date(hoy.getFullYear(), hoy.getMonth(), 1); //para empezar cada mes en dia 1
@@ -70,7 +71,13 @@ console.log(festivosCadena);
 
             //creamos un elemento, le asociamos el contenido, y appendChild para que se grabe en calendario.
             let cabeceraMes = document.createElement('h2');
-            cabeceraMes.textContent = mes[test.getMonth()];
+            cabeceraMes.textContent = mes[test.getMonth()]; //en W3schools usan innerText en vez de textContent:
+            // The innerHTML property returns:
+            // The text content of the element, including all spacing and inner HTML tags.
+            // The innerText property returns:
+            // Just the text content of the element and all its children, without CSS hidden text spacing and tags, except <script> and <style> elements.
+            // The textContent property returns:
+            // The text content of the element and all descendaces, with spacing and CSS hidden text, but without tags..
             calendario.appendChild(cabeceraMes);
 
             //Cada mes, una tabla:
@@ -121,12 +128,12 @@ console.log(festivosCadena);
 
                 //marcamos segun el dia (tenia que haber hecho el if al reves, pero bueno)
                 if (fechaDia >= hoy && fechaDia <= fin) {
-                    // intente un  festivos.includes(fechaDia) pero me dice que tarari
-                    //lo del for he intentado hacerlo con metodos del array pero no lo saco. 
+                    //lo del for he intentado hacerlo con metodos del array pero no lo saco, al final no
+                    //quedo de otra que un for y que recorra cada vez el array de los festivos, pero no me gusta. 
                     let diaCadena = fechaDia.toDateString();
-                    let esFestivo= false;
-                    for (festivo of festivosCadena ){
-                        if (festivo===diaCadena){
+                    let esFestivo = false;
+                    for (festivo of festivosCadena) {
+                        if (festivo === diaCadena) {
                             esFestivo = true;
                             console.log(diaCadena);
                             console.log(esFestivo);
@@ -147,7 +154,7 @@ console.log(festivosCadena);
                 contaCelda++;
             }
             //rellenar los huecos vacios para que no se descuadre al final
-            while (contaCelda < 7 && contaCelda != 0) {
+            while (contaCelda < 7 && contaCelda) {
                 let td = document.createElement('td');
                 tr.appendChild(td);
                 contaCelda++;

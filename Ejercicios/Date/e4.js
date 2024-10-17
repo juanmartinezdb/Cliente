@@ -7,7 +7,7 @@ console.log((today-start)/1000/60/60/24);
 //Mondays
 let mondays = (start) =>{
 const testDay = new Date();
-mondays = 0;    
+let mondays = 0;    
     while (testDay>=start){
         if (testDay.getDay()==1){
             mondays++;
