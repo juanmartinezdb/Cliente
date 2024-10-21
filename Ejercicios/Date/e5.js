@@ -1,15 +1,20 @@
-const day = new Date ("2024-9-15");
+const day = new Date("2024-9-15");
 const year = 2070;
 
-let manyMondays = (day, year) =>{ 
+let manyMondays = (day, year) => {
 
-let match= 0;   
-while (day.getFullYear()<=year){
-    if (day.getDay()==1){
-        match++;
+    let match = 0;
+    let years = [];
+
+    while (day.getFullYear() <= year) {
+        if (day.getDay() == 1) {
+            match++;
+            years.push(day.getFullYear());
+        }
+        day.setFullYear(day.getFullYear() + 1);
     }
-    day.setFullYear(day.getFullYear()+1);
+    years.push("Total: "+match);
+    return years;
 }
-    return match;
-}
-console.log(manyMondays(day,year));
+
+console.log(manyMondays(day, year));
