@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .lectivo {
+            background-color: rgb(159, 219, 159);
+        }
+
+        .festivo {
+            background-color: rgb(211, 133, 133);
+        }
+
+        .finde {
+            background-color: burlywood;
+        }
+
+        .out {
+            background-color: rgb(212, 212, 212);
+        }
+    </style>
+</head>
+
+<body>
+    <p>Quedan <span class="restantes"></span> para que acabe el curso</p>
+    <section class="calendario">
+
+    </section>
+</body>
+<script>
+    const mes = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'augost', 'september', 'october', 'november', 'december'];
+    const festivos = {
+        "2024-11-01": "Día de Todos los Santos",
+        "2024-12-06": "Día de la Constitución",
+        "2024-12-09": "Festivo por el día de la Inmaculada Concepción",
+        "2024-12-23": "Vacaciones de Navidad",
+        "2024-12-24": "Vacaciones de Navidad",
+        "2024-12-25": "Día de Navidad",
+        "2024-12-26": "Vacaciones de Navidad",
+        "2024-12-27": "Vacaciones de Navidad",
+        "2024-12-30": "Vacaciones de Navidad",
+        "2024-12-31": "Vacaciones de Navidad",
+        "2025-01-01": "Día de Año Nuevo",
+        "2025-01-02": "Vacaciones de Navidad",
+        "2025-01-03": "Vacaciones de Navidad",
+        "2025-01-06": "Día de la Epifanía",
+        "2025-01-07": "Sustitución Fiesta Local",
+        "2025-02-24": "Semana Blanca",
+        "2025-02-25": "Semana Blanca",
+        "2025-02-26": "Semana Blanca",
+        "2025-02-27": "Día de la Comunidad Educativa",
+        "2025-02-28": "Día de Andalucía"
+    };
+
+    let diaSemana = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    let hoy = new Date();
+    let fin = new Date("2025-4-11");
+    let cont = 0;
+    let contaCelda = 0;
+/*
+Mapa:
+    TablaLectivos:
+        cabeceraMes.
+        tablaMes:
+            cabeceraTabla
+            cuerpoTabla:
+                huecosIni
+                crearCelda:
+                    marcarDia:
+                        esFestivo.
+        (siguiente mes)
+*/
+    const tablaLectivos = () => {
+        let calendario = document.querySelector(".calendario");
+        let test = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+        while (test <= fin) {
+            cabeceraMes(calendario, test);
+            tablaMes(calendario, test);
+            test.setMonth(test.getMonth() + 1);
+        }
+        document.querySelector('.restantes').textContent = cont;
+    }
+
+    const cabeceraMes = (calendario, fecha) => {
+        let cabeceraMes = document.createElement('h2');
+        cabeceraMes.textContent = mes[fecha.getMonth()];
+        calendario.appendChild(cabeceraMes);
+    }
+
+    const tablaMes = (calendario, fecha) => {
+        let tabla = document.createElement('table');
+        let cabeza = cabeceraTabla();
+        tabla.appendChild(cabeza);
+        let cuerpo = cuerpoTabla(fecha);
+        tabla.appendChild(cuerpo);
+        calendario.appendChild(tabla);
+    }
+
+    const cabeceraTabla = () => {
+        let cabeza = document.createElement('thead');
+        let trCabeza = document.createElement('tr');
+        for (let i = 0; i < 7; i++) {
+            let th = document.createElement('th');
+            th.textContent = diaSemana[(i + 1) % 7];
+            trCabeza.appendChild(th);
+        }
+        cabeza.appendChild(trCabeza);
+        return cabeza;
+    }
+
+    const cuerpoTabla = (fecha) => {
+        let cuerpo = document.createElement('tbody');
+        let tr = document.createElement('tr');
+        contaCelda = 0;
+
+        let huecos = huecosIni(fecha);
+        for (let i = 0; i < huecos; i++) {
+            let td = document.createElement('td');
+            tr.appendChild(td);
+            contaCelda++;
+        }
+
+        let numDiasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
+        for (let dia = 1; dia <= numDiasMes; dia++) {
+            let fechaDia = new Date(fecha.getFullYear(), fecha.getMonth(), dia);
+            if (contaCelda == 7) {
+                cuerpo.appendChild(tr);
+                tr = document.createElement('tr');
+                contaCelda = 0;
+            }
+            let td = crearCeldaDia(fechaDia, dia);
+            tr.appendChild(td);
+            contaCelda++;
+        }
+
+        while (contaCelda < 7 && contaCelda) {
+            let td = document.createElement('td');
+            tr.appendChild(td);
+            contaCelda++;
+        }
+        cuerpo.appendChild(tr);
+        return cuerpo;
+    }
+
+    const huecosIni = (fecha) => {
+        let diaSem1 = fecha.getDay();
+        return (diaSem1) ? diaSem1 - 1 : 6;
+    }
+
+    const crearCeldaDia = (fechaDia, dia) => {
+        let td = document.createElement('td');
+        td.textContent = dia + '\n' + diaSemana[fechaDia.getDay()];
+        marcarDia(td, fechaDia);
+        return td;
+    }
+
+    const marcarDia = (td, fechaDia) => {
+        if (fechaDia >= hoy && fechaDia <= fin) {
+            let esFestivo = esDiaFestivo(fechaDia);
+            if (esFestivo) {
+                td.classList.add('festivo');
+            } else if (fechaDia.getDay() == 0 || fechaDia.getDay() == 6) {
+                td.classList.add('finde');
+            } else {
+                td.classList.add('lectivo');
+                cont++;
+            }
+        } else {
+            td.classList.add('out');
+        }
+    }
+
+    const esDiaFestivo = (fechaDia) => {
+        for (let fechaFestivo in festivos) {
+            let festi = new Date(fechaFestivo);
+            if (festi.toDateString() === fechaDia.toDateString())
+                return true;
+        }
+        return false;
+    }
+
+    tablaLectivos();
+</script>
+
+</html>

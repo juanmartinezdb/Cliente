@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let heading = (h=1)=>{
+        for (let h =1; h<=6; h++){
+        let titulo = document.createElement("h"+h);
+        titulo.textContent = "Heading "+h;
+        //Rigurosamente segun el ejercicio deberia ser algo asi:
+        // let texto = document.createTextNode("Heading"+h);
+        // titulo.appendChild(texto);
+        document.body.appendChild(titulo);
+        }
+    }
+    heading();
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>Introduzca elemento a la lista: </label>
+    <input type="text" class="elemento">
+    <br>
+    <button> Agregar</button>
+    <ol>
+
+    </ol>
+</body>
+<script>
+    //https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/value#retrieving_a_text_inputs_value explicacion del value
+    let insertar = () =>{
+        let elemento = document.querySelector("input").value;
+        let nuevoItem = document.createElement("li");
+        nuevoItem.textContent = elemento;
+        document.querySelector("ol").prepend(nuevoItem);
+    }
+    document.querySelector("button").addEventListener("click", insertar);
+
+    
+</script>
+</html>

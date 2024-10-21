@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Multilingüe</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <label for="idioma">Selecciona el idioma:</label>
+    <select id="idioma">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="it">Italiano</option>
+        <option value="ca">Català</option>
+        <option value="ga">Galego</option>
+        <option value="eu">Euskara</option>
+    </select>
+    <button id="crearCalendario">Crear calendario</button>
+
+    <section class="calendario"></section>
+
+    <script>
+        // Función principal que gestiona el proceso
+        let seleccionarIdioma = () => {
+            // Obtener el idioma seleccionado
+            let idioma = document.getElementById("idioma").value;
+            // Cargar el script correspondiente según el idioma
+            cargarScriptIdioma(idioma);
+        };
+
+        // Función que carga dinámicamente el script del idioma
+        let cargarScriptIdioma = (idioma) => {
+            let cargadorIdioma = document.createElement("script");
+            cargadorIdioma.src = idioma + ".js";
+            cargadorIdioma.type = 'text/javascript';
+            cargadorIdioma.async = false;
+
+            // Asegurarse de que el script se cargue antes de continuar
+            cargadorIdioma.onload = function () {
+                crearCalendario();
+            };
+
+            document.head.appendChild(cargadorIdioma);
+        };
+
+        // Función para crear el calendario una vez se haya cargado el script
+        let crearCalendario = () => {
+            // Limpiar el calendario previo
+            let calendario = document.querySelector(".calendario");
+            calendario.innerHTML = "";
+
+            // Obtener la fecha actual y la fecha de finalización del curso
+            let hoy = new Date();
+            let fin = new Date("2025-04-11");
+            let test = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+
+            // Crear el calendario mes a mes hasta la fecha de fin
+            while (test <= fin) {
+                // Crear y añadir el nombre del mes
+                let cabeceraMes = document.createElement('h2');
+                cabeceraMes.textContent = mes[test.getMonth()];
+                calendario.appendChild(cabeceraMes);
+
+                // Crear la tabla para el mes
+                let tabla = document.createElement('table');
+                let cabeza = document.createElement('thead');
+                let trCabeza = document.createElement('tr');
+
+                // Añadir los días de la semana a la cabecera de la tabla
+                for (let i = 0; i < 7; i++) {
+                    let th = document.createElement('th');
+                    th.textContent = diaSemana[i];
+                    trCabeza.appendChild(th);
+                }
+                cabeza.appendChild(trCabeza);
+                tabla.appendChild(cabeza);
+
+                let cuerpo = document.createElement('tbody');
+                let tr = document.createElement('tr');
+                let contaCelda = 0;
+
+                // Calcular los huecos al inicio del mes
+                let diaSem1 = test.getDay();
+                let huecos = diaSem1 === 0 ? 7 : diaSem1 - 1;
+                for (let i = 0; i < huecos; i++) {
+                    let td = document.createElement('td');
+                    tr.appendChild(td);
+                    contaCelda++;
+                }
+
+                // Añadir los días del mes
+                let numDiasMes = new Date(test.getFullYear(), test.getMonth() + 1, 0).getDate();
+                for (let dia = 1; dia <= numDiasMes; dia++) {
+                    let fechaDia = new Date(test.getFullYear(), test.getMonth(), dia);
+
+                    // Si es el inicio de una nueva semana, añadir la fila anterior y empezar una nueva
+                    if (contaCelda == 7) {
+                        cuerpo.appendChild(tr);
+                        tr = document.createElement('tr');
+                        contaCelda = 0;
+                    }
+
+                    let td = document.createElement('td');
+                    td.textContent = dia;
+
+                    // Añadir evento para mostrar la descripción del festivo al pasar el ratón
+                    if (festivos.hasOwnProperty(fechaDia.toISOString().split('T')[0])) {
+                        td.classList.add('festivo');
+                        td.title = festivos[fechaDia.toISOString().split('T')[0]];
+                    } else if (fechaDia.getDay() == 0 || fechaDia.getDay() == 6) {
+                        td.classList.add('finde');
+                    } else {
+                        td.classList.add('lectivo');
+                    }
+
+                    tr.appendChild(td);
+                    contaCelda++;
+                }
+
+                // Rellenar los huecos al final de la última semana del mes
+                while (contaCelda < 7 && contaCelda > 0) {
+                    let td = document.createElement('td');
+                    tr.appendChild(td);
+                    contaCelda++;
+                }
+
+                cuerpo.appendChild(tr);
+                tabla.appendChild(cuerpo);
+                calendario.appendChild(tabla);
+
+                // Pasar al siguiente mes
+                test.setMonth(test.getMonth() + 1);
+            }
+        };
+
+        // Añadir evento de clic al botón para crear el calendario
+        document.getElementById("crearCalendario").addEventListener("click", seleccionarIdioma);
+    </script>
+</body>
+
+</html>
