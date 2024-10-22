@@ -1,56 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <p>Enlaces: <a href="https://iesbelen.org/">IES Belen</a></p>
-    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://educacionadistancia.juntadeandalucia.es/centros/malaga/my/"> asdfasdf</a> asdfasdf <a href="https://www.google.es/"> aasdfasdf</a></p>
-    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://github.com/juanmartinezdb"> asdfasdf</a> asdfasdf <a href="https://console.firebase.google.com/"> aasdfasdf</a></p>
+    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://educacionadistancia.juntadeandalucia.es/centros/malaga/my/">
+            asdfasdf</a> asdfasdf <a href="https://www.google.es/"> aasdfasdf</a></p>
+    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://github.com/juanmartinezdb"> asdfasdf</a> asdfasdf <a
+            href="https://console.firebase.google.com/"> aasdfasdf</a></p>
 </body>
 <script>
 
     //Numero de enlaces:
 
-        //Metodo A
+    //Metodo A
     let links = document.querySelectorAll("a"); //si queremos solo los que van a algun sitio, podemos buscar por nodo y atributo "a[href]"
     console.log(links.length);
 
-        //Metodo B
+    //Metodo B
     let enlaces = 0;
     let ps = document.querySelectorAll("p");
-    for (let p of ps){
-        for (let nodo of p.children){
-            if (nodo.nodeName=="A"){ //tagName tambien vale
+    for (let p of ps) {
+        for (let nodo of p.children) {
+            if (nodo.nodeName == "A") { //tagName tambien vale
                 enlaces++;
             }
         }
     }
-    console.log("Metodo B: "+ enlaces )
+    console.log("Metodo B: " + enlaces)
 
     //Direccion a la que enlacza el penultimo enlace:
-let penultimo = ps[ps.length-1].lastElementChild.previousElementSibling;
-        console.log(penultimo["href"]);
+    let penultimo = ps[ps.length - 1].lastElementChild.previousElementSibling;
+    console.log(penultimo["href"]);
 
     // numero de links a la pagina del instituo
-let contaIes = 0;    
-    let linksRefs = document.querySelectorAll("a[href]")
-    for (let link of linksRefs){
-        if (link == "https://iesbelen.org/")
-            contaIes++;
-    }
+    let contaIes = document.querySelectorAll('a[href="https://iesbelen.org/"]').length;
+
     console.log(contaIes);
-    
+
     // numero de links en el tercer parrafo
-    let conta=0;    
-    for (let child of ps[2].children){
-            if (child.tagName=="A"){
-                conta++;
-            }
+    //a
+    let conta = 0;
+    for (let child of ps[2].children) {
+        if (child.tagName == "A") {
+            conta++;
         }
-        console.log(conta);
-        
+    }
+    console.log(conta);
+    //b
+    let conta2 = ps[2].querySelectorAll("a").length;
+    console.log(conta2);
+
+
 </script>
+
 </html>

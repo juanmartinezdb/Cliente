@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    p {
+        color: rgb(208, 189, 113);
+    }
+</style>
+
+<body>
+    <table border=2px>
+        <tr>
+            <td style="background-color: rgb(64, 146, 218);">1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+        </tr>
+    </table>
+</body>
+<script>
+    let colours = [
+        "(208, 189, 113)",
+        "(1, 2, 3)",
+        "(28, 18, 113)",
+        "(255, 158, 13)",
+        "(8, 89, 213)",
+        "(98, 9, 23)",
+    ];
+    
+    const pintaTabla = (colours) => {
+        let tabla = document.querySelector("table");
+        contador = 0;
+        for (let fila of tabla.rows) {
+            for (let celda of fila.cells) {
+                celda.setAttribute("style", `background-color: rgb${colours[contador]};`);
+                contador++;
+                if (contador == colours.length - 1) {
+                    contador = 0;
+                }
+            }
+
+        }
+    }
+pintaTabla(colours);
+</script>
+
+</html>
