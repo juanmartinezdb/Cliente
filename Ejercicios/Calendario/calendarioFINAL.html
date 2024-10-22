@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <!-- <script src="variables.js"></script> -->
+    <style>
+        .lectivo {
+            background-color: rgb(159, 219, 159);
+        }
+
+        .festivo {
+            background-color: rgb(211, 133, 133);
+        }
+
+        .finde {
+            background-color: burlywood;
+        }
+
+        .out {
+            background-color: rgb(212, 212, 212);
+        }
+        .calendario {
+            display: flex;
+            /* justify-content: space-around; */
+            flex-wrap: wrap;
+        }
+        .calendario div{
+            margin: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <label for="idioma">Select:</label> -->
+    <select id="idioma">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="it">Italiano</option>
+        <option value="ca">Català</option>
+        <option value="ga">Galego</option>
+        <option value="eu">Euskara</option>
+    </select>
+    <button id="crearCalendario">&#128197</button>
+    <p></p>
+    <section class="calendario">
+
+    </section>
+</body>
+<script>
+    //variables:
+    const festivosMap = {
+        "ca": {
+            "2024-11-01": "Tots Sants",
+            "2024-12-06": "Dia de la Constitució",
+            "2024-12-09": "Festiu per la Immaculada Concepció",
+            "2024-12-23": "Vacances de Nadal",
+            "2024-12-24": "Vacances de Nadal",
+            "2024-12-25": "Dia de Nadal",
+            "2024-12-26": "Vacances de Nadal",
+            "2024-12-27": "Vacances de Nadal",
+            "2024-12-30": "Vacances de Nadal",
+            "2024-12-31": "Vacances de Nadal",
+            "2025-01-01": "Cap d'Any",
+            "2025-01-02": "Vacances de Nadal",
+            "2025-01-03": "Vacances de Nadal",
+            "2025-01-06": "Dia de Reis",
+            "2025-01-07": "Substitució Festa Local",
+            "2025-02-24": "Setmana Blanca",
+            "2025-02-25": "Setmana Blanca",
+            "2025-02-26": "Setmana Blanca",
+            "2025-02-27": "Dia de la Comunitat Educativa",
+            "2025-02-28": "Dia d'Andalusia"
+        },
+        "de": {
+            "2024-11-01": "Allerheiligen",
+            "2024-12-06": "Verfassungstag",
+            "2024-12-09": "Feiertag der Unbefleckten Empfängnis",
+            "2024-12-23": "Weihnachtsferien",
+            "2024-12-24": "Weihnachtsferien",
+            "2024-12-25": "Weihnachtstag",
+            "2024-12-26": "Weihnachtsferien",
+            "2024-12-27": "Weihnachtsferien",
+            "2024-12-30": "Weihnachtsferien",
+            "2024-12-31": "Weihnachtsferien",
+            "2025-01-01": "Neujahrstag",
+            "2025-01-02": "Weihnachtsferien",
+            "2025-01-03": "Weihnachtsferien",
+            "2025-01-06": "Heilige Drei Könige",
+            "2025-01-07": "Lokaler Feiertag Ersatz",
+            "2025-02-24": "Weiße Woche",
+            "2025-02-25": "Weiße Woche",
+            "2025-02-26": "Weiße Woche",
+            "2025-02-27": "Tag der Bildungsgemeinschaft",
+            "2025-02-28": "Andalusien-Tag"
+        },
+        "en": {
+            "2024-11-01": "All Saints' Day",
+            "2024-12-06": "Constitution Day",
+            "2024-12-09": "Holiday for the Feast of the Immaculate Conception",
+            "2024-12-23": "Christmas Holidays",
+            "2024-12-24": "Christmas Holidays",
+            "2024-12-25": "Christmas Day",
+            "2024-12-26": "Christmas Holidays",
+            "2024-12-27": "Christmas Holidays",
+            "2024-12-30": "Christmas Holidays",
+            "2024-12-31": "Christmas Holidays",
+            "2025-01-01": "New Year's Day",
+            "2025-01-02": "Christmas Holidays",
+            "2025-01-03": "Christmas Holidays",
+            "2025-01-06": "Epiphany",
+            "2025-01-07": "Local Holiday Substitute",
+            "2025-02-24": "White Week",
+            "2025-02-25": "White Week",
+            "2025-02-26": "White Week",
+            "2025-02-27": "Education Community Day",
+            "2025-02-28": "Andalusia Day"
+        },
+        "es": {
+            "2024-11-01": "Día de Todos los Santos",
+            "2024-12-06": "Día de la Constitución",
+            "2024-12-09": "Festivo por el día de la Inmaculada Concepción",
+            "2024-12-23": "Vacaciones de Navidad",
+            "2024-12-24": "Vacaciones de Navidad",
+            "2024-12-25": "Día de Navidad",
+            "2024-12-26": "Vacaciones de Navidad",
+            "2024-12-27": "Vacaciones de Navidad",
+            "2024-12-30": "Vacaciones de Navidad",
+            "2024-12-31": "Vacaciones de Navidad",
+            "2025-01-01": "Día de Año Nuevo",
+            "2025-01-02": "Vacaciones de Navidad",
+            "2025-01-03": "Vacaciones de Navidad",
+            "2025-01-06": "Día de la Epifanía",
+            "2025-01-07": "Sustitución Fiesta Local",
+            "2025-02-24": "Semana Blanca",
+            "2025-02-25": "Semana Blanca",
+            "2025-02-26": "Semana Blanca",
+            "2025-02-27": "Día de la Comunidad Educativa",
+            "2025-02-28": "Día de Andalucía"
+        },
+        "eu": {
+            "2024-11-01": "Santu Guztien Eguna",
+            "2024-12-06": "Konstituzioaren Eguna",
+            "2024-12-09": "Birjinalaren Jaiotzaren Jaia",
+            "2024-12-23": "Gabonetako Oporrak",
+            "2024-12-24": "Gabonetako Oporrak",
+            "2024-12-25": "Gabon Eguna",
+            "2024-12-26": "Gabonetako Oporrak",
+            "2024-12-27": "Gabonetako Oporrak",
+            "2024-12-30": "Gabonetako Oporrak",
+            "2024-12-31": "Gabonetako Oporrak",
+            "2025-01-01": "Urteberri Eguna",
+            "2025-01-02": "Gabonetako Oporrak",
+            "2025-01-03": "Gabonetako Oporrak",
+            "2025-01-06": "Errege Eguna",
+            "2025-01-07": "Tokiko Jaia Ordezkatzea",
+            "2025-02-24": "Aste Zuri",
+            "2025-02-25": "Aste Zuri",
+            "2025-02-26": "Aste Zuri",
+            "2025-02-27": "Hezkuntza Komunitatearen Eguna",
+            "2025-02-28": "Andaluzia Eguna"
+        },
+        "fr": {
+            "2024-11-01": "La Toussaint",
+            "2024-12-06": "Jour de la Constitution",
+            "2024-12-09": "Fête de l'Immaculée Conception",
+            "2024-12-23": "Vacances de Noël",
+            "2024-12-24": "Vacances de Noël",
+            "2024-12-25": "Jour de Noël",
+            "2024-12-26": "Vacances de Noël",
+            "2024-12-27": "Vacances de Noël",
+            "2024-12-30": "Vacances de Noël",
+            "2024-12-31": "Vacances de Noël",
+            "2025-01-01": "Jour de l'An",
+            "2025-01-02": "Vacances de Noël",
+            "2025-01-03": "Vacances de Noël",
+            "2025-01-06": "Jour de l'Épiphanie",
+            "2025-01-07": "Substitution de la Fête Locale",
+            "2025-02-24": "Semaine Blanche",
+            "2025-02-25": "Semaine Blanche",
+            "2025-02-26": "Semaine Blanche",
+            "2025-02-27": "Journée de la Communauté Éducative",
+            "2025-02-28": "Jour de l'Andalousie"
+        },
+        "ga": {
+            "2024-11-01": "Día de Todos os Santos",
+            "2024-12-06": "Día da Constitución",
+            "2024-12-09": "Festivo pola Inmaculada Concepción",
+            "2024-12-23": "Vacacións de Nadal",
+            "2024-12-24": "Vacacións de Nadal",
+            "2024-12-25": "Día de Nadal",
+            "2024-12-26": "Vacacións de Nadal",
+            "2024-12-27": "Vacacións de Nadal",
+            "2024-12-30": "Vacacións de Nadal",
+            "2024-12-31": "Vacacións de Nadal",
+            "2025-01-01": "Aninovo",
+            "2025-01-02": "Vacacións de Nadal",
+            "2025-01-03": "Vacacións de Nadal",
+            "2025-01-06": "Día de Reis",
+            "2025-01-07": "Substitución Festa Local",
+            "2025-02-24": "Semana Branca",
+            "2025-02-25": "Semana Branca",
+            "2025-02-26": "Semana Branca",
+            "2025-02-27": "Día da Comunidade Educativa",
+            "2025-02-28": "Día de Andalucía"
+        },
+        "it": {
+            "2024-11-01": "Ognissanti",
+            "2024-12-06": "Giorno della Costituzione",
+            "2024-12-09": "Festa dell'Immacolata Concezione",
+            "2024-12-23": "Vacanze di Natale",
+            "2024-12-24": "Vacanze di Natale",
+            "2024-12-25": "Natale",
+            "2024-12-26": "Vacanze di Natale",
+            "2024-12-27": "Vacanze di Natale",
+            "2024-12-30": "Vacanze di Natale",
+            "2024-12-31": "Vacanze di Natale",
+            "2025-01-01": "Capodanno",
+            "2025-01-02": "Vacanze di Natale",
+            "2025-01-03": "Vacanze di Natale",
+            "2025-01-06": "Epifania",
+            "2025-01-07": "Sostituzione Festa Locale",
+            "2025-02-24": "Settimana Bianca",
+            "2025-02-25": "Settimana Bianca",
+            "2025-02-26": "Settimana Bianca",
+            "2025-02-27": "Giorno della Comunità Educativa",
+            "2025-02-28": "Giorno dell'Andalusia"
+        },
+    };
+    const mesMap = {
+        "ca": ['Gener', 'Febrer', 'Març', 'Abril', 'Maig', 'Juny', 'Juliol', 'Agost', 'Setembre', 'Octubre', 'Novembre', 'Desembre'],
+        "de": ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        "en": ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        "es": ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        "eu": ['Urtarrila', 'Otsaila', 'Martxoa', 'Apirila', 'Maiatza', 'Ekaina', 'Uztaila', 'Abuztua', 'Iraila', 'Urria', 'Azaroa', 'Abendua'],
+        "fr": ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        "ga": ['Xaneiro', 'Febreiro', 'Marzo', 'Abril', 'Maio', 'Xuño', 'Xullo', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Decembro'],
+        "it": ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+    };
+
+    const diaSemanaMap = {
+        "ca": ["Dg", "Dl", "Dt", "Dc", "Dj", "Dv", "Ds"],
+        "de": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+        "en": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        "es": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+        "eu": ["Iga", "Ast", "Ast", "Ast", "Ost", "Ost", "Lar"],
+        "fr": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+        "ga": ["Dom", "Lun", "Mar", "Mér", "Xov", "Ven", "Sáb"],
+        "it": ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"],
+    };
+
+    const restantePMap = {
+        "ca": 'Queden <span class="restantes"></span> perquè acabi el curs',
+        "de": 'Es bleiben <span class="restantes"></span>, bis der Kurs endet',
+        "en": 'There are <span class="restantes"></span> left until the course ends',
+        "es": 'Quedan <span class="restantes"></span> para que acabe el curso',
+        "eu": '<span class="restantes"></span> falta dira ikasturtea amaitzeko',
+        "fr": 'Il reste <span class="restantes"></span> avant la fin du cours',
+        "ga": 'Quedan <span class="restantes"></span> para que remate o curso',
+        "it": 'Rimangono <span class="restantes"></span> fino alla fine del corso',
+    };
+    const fin = new Date("2025-4-11");
+    let cont = 0;
+    const tablaLectivos = () => {
+        let calendario = document.querySelector(".calendario");
+        calendario.innerHTML = "";
+        cont = 0;
+        let fecha = new Date();
+        fecha.setDate(1);
+
+
+        let contaCelda = 0;
+        let festivos;
+        let mes;
+        let diaSemana;
+        let restanteP;
+        cargaIdioma();
+
+        while (fecha <= fin) {
+            let container = document.createElement("div");
+            cabeceraMes(container, fecha);
+            tablaMes(container, fecha);
+            calendario.appendChild(container);
+            fecha.setMonth(fecha.getMonth() + 1);
+        }
+        document.querySelector(".restantes").textContent = cont;
+        activarListenerFestivos();
+    }
+
+    const cargaIdioma = () => {
+        let opcion = document.querySelector("#idioma").value;
+        festivos = festivosMap[opcion];
+        mes = mesMap[opcion];
+        diaSemana = diaSemanaMap[opcion];
+        restanteP = restantePMap[opcion];
+
+        parrafoIni = document.querySelector("p");
+        parrafoIni.innerHTML = restanteP;
+    }
+
+    const cabeceraMes = (calendario, fecha) => {
+        let cabeceraMes = document.createElement('h2');
+        cabeceraMes.textContent = mes[fecha.getMonth()];
+        calendario.appendChild(cabeceraMes);
+    }
+    const tablaMes = (calendario, fecha) => {
+        let tabla = document.createElement("table");
+        let cabecera = cabeceraTabla();
+        tabla.appendChild(cabecera);
+        let cuerpo = cuerpoTabla(fecha);
+        tabla.appendChild(cuerpo);
+        calendario.appendChild(tabla);
+
+    }
+    const cabeceraTabla = () => {
+        let cabecera = document.createElement("thead");
+        let trCabecera = document.createElement("tr");
+        for (let i = 0; i < 7; i++) {
+            let th = document.createElement("th");
+            th.textContent = diaSemana[(i + 1) % 7]; //para que justo cuando sea 7 tome el 0 que es domingo
+            trCabecera.appendChild(th);
+        }
+        cabecera.appendChild(trCabecera);
+        return cabecera;
+    }
+    const cuerpoTabla = (fecha) => {
+        let cuerpo = document.createElement("tbody");
+        let tr = document.createElement("tr");
+        contaCelda = 0;
+
+        let huecos = huecosIni(fecha);
+        for (let i = 0; i < huecos; i++) {
+            let td = document.createElement("td");
+            tr.appendChild(td);
+            contaCelda++;
+        }
+
+        let numDiasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
+        for (let dia = 1; dia <= numDiasMes; dia++) {
+            let fechaDia = new Date(fecha.getFullYear(), fecha.getMonth(), dia);
+            if (contaCelda == 7) {
+                cuerpo.appendChild(tr);
+                tr = document.createElement("tr");
+                contaCelda = 0;
+            }
+            let td = crearCeldaDia(fechaDia, dia);
+            tr.appendChild(td);
+            contaCelda++;
+
+        }
+        while (contaCelda < 7 && contaCelda) { //los huecos del final
+            let td = document.createElement("td");
+            tr.appendChild(td);
+            contaCelda++;
+        }
+        cuerpo.appendChild(tr);
+        return cuerpo;
+
+    }
+    const crearCeldaDia = (fechaDia, dia) => {
+        let td = document.createElement("td");
+        td.textContent = dia;
+        marcarDia(td, fechaDia);
+        return td;
+
+    }
+    const marcarDia = (td, fechaDia) => {
+        let hoy = new Date();
+        if (fechaDia >= hoy && fechaDia <= fin) {
+            let infoFestivo = esDiaFestivo(fechaDia);
+            if (infoFestivo) {
+                td.setAttribute("datadescripcion", infoFestivo);
+                td.classList.add('festivo');
+            } else if (fechaDia.getDay() == 0 || fechaDia.getDay() == 6) {
+                td.classList.add('finde');
+            } else {
+                td.classList.add('lectivo');
+                cont++;
+            }
+        } else {
+            td.classList.add('out');
+        }
+    }
+
+    const esDiaFestivo = (fechaDia) => {
+        for (let fechaFestivo in festivos) {
+            let festi = new Date(fechaFestivo);
+            if (festi.toDateString() === fechaDia.toDateString()) {
+                console.log(festivos[fechaFestivo]);
+                return festivos[fechaFestivo];
+            }
+        }
+        return false;
+    }
+
+    const huecosIni = (fecha) => {
+        let diaSe = fecha.getDay();
+        return (diaSe) ? diaSe - 1 : 6; //si el dia de la semana no es Domingo 0 (nulo), cuenta el dia-1 (lunes 1-1=0), porque hay que dejar 0 huecos.
+    }
+
+    document.querySelector("#crearCalendario").addEventListener("click", tablaLectivos);
+
+
+
+
+
+    //ACTIVAR EL EVENTO DE LA DESCRIPCION (NO LO QUE SACADO AL FINAL )
+    const activarListenerFestivos = ()=>{
+        let fest = document.querySelectorAll("td[datadescripcion]").addEventListener("click", alertaDescripcion);
+    }
+    const alertaDescripcion = ()=>{
+        alert(td.getAttribute("datadescripcion"));
+    }
+</script>
+
+</html>
