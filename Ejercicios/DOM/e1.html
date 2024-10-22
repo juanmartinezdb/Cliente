@@ -1,56 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
+
 <body>
-    <p>Enlaces: <a href="https://iesbelen.org/">IES Belen</a></p>
-    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://educacionadistancia.juntadeandalucia.es/centros/malaga/my/"> asdfasdf</a> asdfasdf <a href="https://www.google.es/"> aasdfasdf</a></p>
-    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://github.com/juanmartinezdb"> asdfasdf</a> asdfasdf <a href="https://console.firebase.google.com/"> aasdfasdf</a></p>
+    <form name="search">
+        <label>Search the site:
+            <input type="text" name="search">
+        </label>
+        <input type="submit" value="Search!">
+    </form>
+
+    <hr>
+
+    <form name="search-person">
+        Search the visitors:
+        <table id="age-table">
+            <tbody>
+                <tr>
+                    <td>Age:</td>
+                    <td id="age-list">
+                        <label>
+                            <input type="radio" name="age" value="young">less than 18</label>
+                        <label>
+                            <input type="radio" name="age" value="mature">18-50</label>
+                        <label>
+                            <input type="radio" name="age" value="senior">more than 50</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Additionally:</td>
+                    <td>
+                        <input type="text" name="info[0]">
+                        <input type="text" name="info[1]">
+                        <input type="text" name="info[2]">
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <input type="submit" value="Search!">
+    </form>
+
+
 </body>
 <script>
-
-    //Numero de enlaces:
-
-        //Metodo A
-    let links = document.querySelectorAll("a"); //si queremos solo los que van a algun sitio, podemos buscar por nodo y atributo "a[href]"
-    console.log(links.length);
-
-        //Metodo B
-    let enlaces = 0;
-    let ps = document.querySelectorAll("p");
-    for (let p of ps){
-        for (let nodo of p.children){
-            if (nodo.nodeName=="A"){ //tagName tambien vale
-                enlaces++;
+    //1
+        //a
+        let tablaEdad = document.querySelector("#age-table");
+        console.log(tablaEdad.tagName);        
+        //b
+        let labels = tablaEdad.querySelectorAll("label");
+        console.log(labels.length);        
+        //c
+        let tds = tablaEdad.querySelectorAll("td");
+        let td;
+        let encontrado = false;
+        for (let i=0; !encontrado && i<tds.length; i++){
+            if (tds[i].textContent.includes("Age")){
+                td = tds[i];
+                encontrado=true;
             }
+        console.log(td.textContent);
         }
-    }
-    console.log("Metodo B: "+ enlaces )
+        //d
+        let formName = document.querySelector('form[name="search"]');
+        console.log(formName);
+        //e
+        let firstInput = formName.querySelector('input');
+        console.log(firstInput);
+        //f
+        let lastInput = formName.lastElementChild;
+        console.log(lastInput);
 
-    //Direccion a la que enlacza el penultimo enlace:
-let penultimo = ps[ps.length-1].lastElementChild.previousElementSibling;
-        console.log(penultimo["href"]);
 
-    // numero de links a la pagina del instituo
-let contaIes = 0;    
-    let linksRefs = document.querySelectorAll("a[href]")
-    for (let link of linksRefs){
-        if (link == "https://iesbelen.org/")
-            contaIes++;
-    }
-    console.log(contaIes);
-    
-    // numero de links en el tercer parrafo
-    let conta=0;    
-    for (let child of ps[2].children){
-            if (child.tagName=="A"){
-                conta++;
-            }
-        }
-        console.log(conta);
-        
 </script>
 </html>

@@ -6,20 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>Enlaces: <a href="https://iesbelen.org/">IES Belen</a></p>
+    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://educacionadistancia.juntadeandalucia.es/centros/malaga/my/"> asdfasdf</a> asdfasdf <a href="https://www.google.es/"> aasdfasdf</a></p>
+    <p> sdflñkj lakjsdfkjas sdflkjaf <a href="https://github.com/juanmartinezdb"> asdfasdf</a> asdfasdf <a href="https://console.firebase.google.com/"> aasdfasdf</a></p>
 </body>
 <script>
-    let heading = (h=1)=>{
-        for (let h =1; h<=6; h++){
-        let titulo = document.createElement("h"+h);
-        titulo.textContent = "Heading "+h;
-        //Rigurosamente segun el ejercicio deberia ser algo asi:
-        // let texto = document.createTextNode("Heading"+h);
-        // titulo.appendChild(texto);
-        document.body.appendChild(titulo);
+
+    //Numero de enlaces:
+
+        //Metodo A
+    let links = document.querySelectorAll("a"); //si queremos solo los que van a algun sitio, podemos buscar por nodo y atributo "a[href]"
+    console.log(links.length);
+
+        //Metodo B
+    let enlaces = 0;
+    let ps = document.querySelectorAll("p");
+    for (let p of ps){
+        for (let nodo of p.children){
+            if (nodo.nodeName=="A"){ //tagName tambien vale
+                enlaces++;
+            }
         }
     }
-    heading();
+    console.log("Metodo B: "+ enlaces )
 
+    //Direccion a la que enlacza el penultimo enlace:
+let penultimo = ps[ps.length-1].lastElementChild.previousElementSibling;
+        console.log(penultimo["href"]);
+
+    // numero de links a la pagina del instituo
+let contaIes = 0;    
+    let linksRefs = document.querySelectorAll("a[href]")
+    for (let link of linksRefs){
+        if (link == "https://iesbelen.org/")
+            contaIes++;
+    }
+    console.log(contaIes);
+    
+    // numero de links en el tercer parrafo
+    let conta=0;    
+    for (let child of ps[2].children){
+            if (child.tagName=="A"){
+                conta++;
+            }
+        }
+        console.log(conta);
+        
 </script>
 </html>
