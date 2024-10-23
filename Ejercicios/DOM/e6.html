@@ -6,19 +6,34 @@
     <title>Document</title>
 </head>
 <body>
-    <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+    <div></div>
+
 </body>
 <script>
     const crearTabla = (rows, columns,alto, ancho) => { //Ojo en pixeles el ancho y el alto
-
-
+        let tabla = document.createElement("table");
+        tabla.setAttribute("border", "1px");
+        
+        for (let i=0; i<columns; i++){
+            let tr = document.createElement("tr");
+            for (let j=0; j<rows; j++){
+                let td = document.createElement("td");
+                if (j%2){
+                    td.style.backgroundColor = "black";
+                }
+                td.style.width = ancho+"px";
+                td.style.height = alto+"px";
+                tr.appendChild(td);
+            }
+            tabla.appendChild(tr);
+        }
+        return tabla;
     }
+    document.querySelector("div").appendChild(crearTabla(3,4,2,4));
+
 </script>
+
+
+
+
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" name="nombre">
+</body>
+<script>
+    document.createElement("div");
+    //before
+    //after
+
+    //insertAdjacentHtml 
+    // document.querySelector("#container").insertAdjacentHTML("beforebegin", "<div>hola</div>");
+    // document.querySelector("#container").insertAdjacentHTML("afterend", "<div>hola</div>");
+    // document.querySelector("#container").insertAdjacentHTML("afterbegin", "<div>hola</div>");//primer hijo
+    // document.querySelector("#container").insertAdjacentHTML("beforeend", "<div>hola</div>"); //ultimo hijo
+    
+    //atributos
+    const nombreInput = document.querySelector("input[name='nombre']");
+    console.log(nombreInput.hasAttribute("class"));
+    nombreInput.setAttribute("name","nick"); //le damos valor al atributo name
+    nombreInput.setAttribute("class","prueba"); //creamos el atributo class y le damos de valor prueba
+    console.log(nombreInput);
+
+    //NO USAR EL ATRIBUTO HIDDEN, SE LO SALTAN LOS METODOS DEL DOM, ES DECIR SE VUELVE INACCESIBLE
+    
+</script>
+</html>
