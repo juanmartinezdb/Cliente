@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .error {
+            border-color: #dc3545;
+        }
+        .info-div {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Formulario de Registro de Eventos</h2>
+    <form class="omForm">
+        <div class="form-group">
+            <label for="nameInput">Nombre Completo:</label>
+            <input type="text" class="form-control" id="nameInput" name="nameInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="emailInput">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="emailInput" name="emailInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="passwordInput">Contraseña:</label>
+            <input type="password" class="form-control" id="passwordInput" name="passwordInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phoneInput">Teléfono:</label>
+            <input type="tel" class="form-control" id="phoneInput" name="phoneInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ageInput">Edad:</label>
+            <input type="number" class="form-control" id="ageInput" name="ageInput" min="18" required>
+        </div>
+
+        <div class="form-group">
+            <label for="colorInput">Color Favorito:</label>
+            <input type="color" class="form-control" id="colorInput" name="colorInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dateInput">Fecha del Evento:</label>
+            <input type="date" class="form-control" id="dateInput" name="dateInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeInput">Hora de Llegada:</label>
+            <input type="time" class="form-control" id="timeInput" name="timeInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="datetimeInput">Fecha y Hora de Registro:</label>
+            <input type="datetime-local" class="form-control" id="datetimeInput" name="datetimeInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rangeInput">Nivel de Entusiasmo (1-10):</label>
+            <input type="range" class="form-control" id="rangeInput" name="rangeInput" min="1" max="10" required>
+        </div>
+
+        <div class="form-group">
+            <label>Género:</label><br>
+            <input type="radio" id="male" name="gender" value="Masculino" required>
+            <label for="male">Masculino</label><br>
+            <input type="radio" id="female" name="gender" value="Femenino">
+            <label for="female">Femenino</label><br>
+            <input type="radio" id="other" name="gender" value="Otro">
+            <label for="other">other</label>
+        </div>
+
+        <div class="form-group">
+            <label>Preferencias de Comida:</label><br>
+            <input type="checkbox" id="veg" name="foodPreference" value="Vegetariano">
+            <label for="veg">Vegetariano</label><br>
+            <input type="checkbox" id="nonveg" name="foodPreference" value="No Vegetariano">
+            <label for="nonveg">No Vegetariano</label><br>
+            <input type="checkbox" id="vegan" name="foodPreference" value="Vegano">
+            <label for="vegan">Vegano</label>
+        </div>
+
+        <div class="form-group">
+            <label for="fileInput">Sube una Foto de Perfil:</label>
+            <input type="file" class="form-control" id="fileInput" name="fileInput" required>
+        </div>
+
+        <div class="form-group">
+            <label for="selectInput">País de Residencia:</label>
+            <select class="form-control" id="selectInput" name="selectInput" required>
+                <option value="">--Selecciona tu país--</option>
+                <option value="España">España</option>
+                <option value="México">México</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Chile">Chile</option>
+                <option value="Colombia">Colombia</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="textareaInput">Comentarios Adicionales:</label>
+            <textarea class="form-control" id="textareaInput" name="textareaInput" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <input type="reset" class="btn btn-secondary" value="Reiniciar">
+    </form>
+    
+    <div class="info-div d-none info"></div>
+</div>
+
+<script>
+    document.querySelector('.omForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = e.target;
+        let isValid = true;
+        let formData = new FormData(form);
+        let infoDiv = document.querySelector('.info');
+        infoDiv.innerHTML = '';
+
+        // Limpiar errores
+        Array.from(form.elements).forEach(element => {
+            if (element.classList.contains('error')) {
+                element.classList.remove('error');
+            }
+        });
+
+        // Validar campos obligatorios
+        formData.forEach((value, key) => {
+            let input = document.querySelector(`[name="${key}"]`);
+            if (!value) {
+                input.classList.add('error');
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            infoDiv.classList.add('d-none');
+            return;
+        }
+
+        // Mostrar datos del formulario
+        formData.forEach((value, key) => {
+            infoDiv.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+        });
+        infoDiv.classList.remove('d-none');
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

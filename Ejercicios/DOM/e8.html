@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <table border="1">
+    <table class="tabla1" border="1">
         <tr>
             <td></td>
             <td></td>
@@ -23,19 +23,56 @@
 </body>
 <script>
 
-    const crearFilaArriba = () => {
-        const tabla =document.querySelector("table");
+    const crearFilaArriba = (nombre) => {
+        let tabla  = document.querySelector(nombre);
         let tr = document.createElement("tr");
-        for (let i = 0; i < tabla.tr) {
-
+        let columna1 = document.querySelector("tr");
+        let celdas = columna1.querySelectorAll("td").length;
+        console.log(celdas);
+        for (let i = 0; i < celdas; i++) {
+                let td = document.createElement("td");
+                td.textContent= "top";
+                tr.append(td);
         }
-        tabla.prependChild(tr);
+        tabla.prepend(tr);
     }
+    const crearFilaAbajo = (nombre) => {
+        let tabla  = document.querySelector(nombre);
+        let tr = document.createElement("tr");
+        let columna1 = document.querySelector("tr");
+        let celdas = columna1.querySelectorAll("td").length;
+        console.log(celdas);
+        for (let i = 0; i < celdas; i++) {
+                let td = document.createElement("td");
+                td.textContent= "bottom";
+                tr.append(td);
+        }
+        tabla.append(tr);
+    }
+const crearColumnaIzq = (nombre)=> {
+    let tabla  = document.querySelector(nombre);
+    let trs = tabla.querySelectorAll("tr");
+    for (let tr of trs){
+        let td = document.createElement("td");
+                td.textContent= "left";
+                tr.prepend(td);
+    }
+}
+const crearColumnaDch = (nombre)=> {
+    let tabla  = document.querySelector(nombre);
+    let trs = tabla.querySelectorAll("tr");
+    for (let tr of trs){
+        let td = document.createElement("td");
+                td.textContent= "right";
+                tr.append(td);
+    }
+}
+    
 
-    
-    const tabla = document.querySelector("table");
-    
-    crearFilaArriba();
+    crearFilaArriba(".tabla1");
+    crearFilaAbajo(".tabla1");
+    crearColumnaIzq(".tabla1");
+    crearColumnaDch(".tabla1");
 
 </script>
 
