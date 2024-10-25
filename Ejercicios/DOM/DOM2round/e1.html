@@ -62,6 +62,20 @@
     </table>
 </body>
 <script>
+ const analiza = (e) =>{
+    let father = e.target.parentNode;
+    let siblings = father.children;
+    console.log(siblings);
+    console.log (`
+    Father : nodeName: ${(father)?father.nodeName:"there are no Father node"} 
+    Siblings : 
+    `);
+    console.log(e.target.parentNode.nodeName);
+ }
+document.querySelector("#child2").addEventListener("click", analiza);
+document.querySelector("#child3 h4").addEventListener("click", analiza);
+document.querySelector("#person1 td").addEventListener("click", analiza);
+
 
 
 </script>
