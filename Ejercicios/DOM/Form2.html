@@ -108,7 +108,7 @@
         let submit = document.querySelector("button");
         submit.addEventListener("click", function(event) {
             event.preventDefault();
-            let inputs = document.querySelectorAll("input");
+            let inputs = document.querySelectorAll("input, select, textarea");
             let mostrar = document.querySelector("#mostrar");
             for (let input of inputs) {
                 console.log(input);
