@@ -68,18 +68,23 @@
         console.log(siblings);
         console.log(`
     me : nodeName ${e.target.nodeName} id: ${(e.target["id"]) ? e.target["id"] : "no id"}
-    Father : nodeName: ${(father) ? father.nodeName : "there are no Father node"} id: ${(father["id"]) ? father["id"] : "no id"} 
-    Siblings : ${pintaSiblings(siblings)}
-    Previous sibling: ${(e.previousElementSibling) ? `nodeName ${e.previousElementSibling.nodeName} id: ${e.previousElementSibling["id"] ? e.previousElementSibling["id"] : "no id"}` : ` there are no previuos Siblings`}
-    Previous sibling: nodeName: ${(e.previousElementSibling) ? e.previousElementSibling.nodeName : "there are no Previous Sibling"}
-
+    Father : ${pintaNodo(father, "father")}
+    Siblings : ${pintaMuchosNodos(siblings)}
     `);
         console.log(e.target.parentNode.nodeName);
     }
+    const pintaNodo = (nodo, name) => {
+        if (nodo) {
+            return `nodeName: ${nodo.nodeName} id: ${(nodo["id"]) ? nodo["id"] : "no id"}`
+        } else {
+            return `there are no ${name}.`; 
+        }
 
-    const pintaSiblings = (siblings) => {
-        let cadena = ""
-        for (sibling of siblings) {
+    }
+
+    const pintaMuchosNodos = (nodos) => {
+        let cadena = "";
+        for (sibling of nodos) {
             cadena += `
         nodeName: ${sibling.nodeName} id: ${(sibling["id"]) ? sibling["id"] : "no id"}`
         }
