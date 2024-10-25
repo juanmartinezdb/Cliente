@@ -62,19 +62,32 @@
     </table>
 </body>
 <script>
- const analiza = (e) =>{
-    let father = e.target.parentNode;
-    let siblings = father.children;
-    console.log(siblings);
-    console.log (`
-    Father : nodeName: ${(father)?father.nodeName:"there are no Father node"} 
-    Siblings : 
+    const analiza = (e) => {
+        let father = e.target.parentElement;
+        let siblings = father.children;
+        console.log(siblings);
+        console.log(`
+    me : nodeName ${e.target.nodeName} id: ${(e.target["id"]) ? e.target["id"] : "no id"}
+    Father : nodeName: ${(father) ? father.nodeName : "there are no Father node"} id: ${(father["id"]) ? father["id"] : "no id"} 
+    Siblings : ${pintaSiblings(siblings)}
+    Previous sibling: ${(e.previousElementSibling) ? `nodeName ${e.previousElementSibling.nodeName} id: ${e.previousElementSibling["id"] ? e.previousElementSibling["id"] : "no id"}` : ` there are no previuos Siblings`}
+    Previous sibling: nodeName: ${(e.previousElementSibling) ? e.previousElementSibling.nodeName : "there are no Previous Sibling"}
+
     `);
-    console.log(e.target.parentNode.nodeName);
- }
-document.querySelector("#child2").addEventListener("click", analiza);
-document.querySelector("#child3 h4").addEventListener("click", analiza);
-document.querySelector("#person1 td").addEventListener("click", analiza);
+        console.log(e.target.parentNode.nodeName);
+    }
+
+    const pintaSiblings = (siblings) => {
+        let cadena = ""
+        for (sibling of siblings) {
+            cadena += `
+        nodeName: ${sibling.nodeName} id: ${(sibling["id"]) ? sibling["id"] : "no id"}`
+        }
+        return cadena;
+    }
+    document.querySelector("#child2").addEventListener("click", analiza);
+    document.querySelector("#child3 h4").addEventListener("click", analiza);
+    document.querySelector("#person1 td").addEventListener("click", analiza);
 
 
 
