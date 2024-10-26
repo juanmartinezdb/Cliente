@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/js_libraries/node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="/js_libraries/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<form>
+<div>
+    <input type="text" class="" id="iText1">
+    <br>
+    <input type="text" id="iText2">
+    <br>
+    <input type="text" id="iText3">
+    <br>
+    Upper: <input type="text" id="iText4">
+    <br>
+    Only number: <input type="text" id="iText5">
+    <br>
+    Only number: <input type="text" class="border border-1 border-black" id="iText6">
+    <button type="reset">Clear</button>
+</form>
+</div>
+<div id="container"></div>
+<script>
+
+    iText1.addEventListener("keydown", e => {
+        container.innerHTML += `down: ${e.key} - ${e.code}<br>`;
+
+        let text = e.type +
+            ' key=' + e.key +
+            ' code=' + e.code +
+            (e.shiftKey ? ' shiftKey' : '') +
+            (e.ctrlKey ? ' ctrlKey' : '') +
+            (e.altKey ? ' altKey' : '') +
+            (e.metaKey ? ' metaKey' : '') +
+            (e.repeat ? ' (repeat)' : '') +
+            "\n";
+        console.log(text)
+        console.log(e)
+    })
+
+    iText1.addEventListener("keyup", e => {
+        container.innerHTML += `up: ${e.key}<br>`;
+    })
+
+    iText2.addEventListener("change", e => {
+        // cambio al perder el foco
+        container.innerHTML += `change: ${iText2.value}<br>`;
+    })
+
+
+    iText3.addEventListener("input", e => {
+        // cada cambio sin perder el foco
+        container.innerHTML += `input: ${iText3.value}<br>`;
+    })
+    iText4.addEventListener("input", e => {
+        // cada cambio sin perder el foco
+        iText4.value = iText4.value.toUpperCase()
+        container.innerHTML += `input: ${iText4.value}<br>`;
+    })
+
+    iText5.addEventListener("input", e => {
+        // cada cambio sin perder el foco
+        if (isNaN(iText5.value)) {
+            iText5.value = ""
+        }
+    })
+    iText6.addEventListener("keydown", e => {
+        const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+        console.log(e)
+        if (numbers.indexOf(e.key) == -1) {
+      /*      e.target.classList.remove("border-black")*/
+            e.target.classList.add("bg-success")
+            console.log(e.target.classList)
+     //       e.target.classList.add("bg-warning")
+            setTimeout(e.target.classList.toggle("bg-warning"),1000)
+            console.log("dddd",e.key)
+            e.preventDefault();
+        }
+    })
+</script>
+</body>
+</html>

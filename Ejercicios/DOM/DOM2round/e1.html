@@ -65,31 +65,56 @@
     const analiza = (e) => {
         let father = e.target.parentElement;
         let siblings = father.children;
-        console.log(siblings);
+        let grandFather = father.parentElement;
+        // console.log(siblings);
         console.log(`
-    me : nodeName ${e.target.nodeName} id: ${(e.target["id"]) ? e.target["id"] : "no id"}
+    This :    ${pintaNodo(e.target, "this")}
     Father : ${pintaNodo(father, "father")}
-    Siblings : ${pintaMuchosNodos(siblings)}
+    Siblings : ${pintaMuchosNodos(siblings,"siblings")}
+    Previous Sibling: ${pintaNodo(e.target.previousSibling, "previous Sibling")}
+    The next sibling: ${pintaNodo(e.target.nextSibling, "next Sibling")} 
+    The grandfather:  ${pintaNodo(grandFather, "granfather")}
+    Grandfather's siblings: ${pintaMuchosNodos(grandFather.parentElement.children, "grandfather's siblings")}
+    Father's siblings: ${pintaMuchosNodos(grandFather.children, "father's siblings")}
+    Cousings: ${pintaPrimos(grandFather.children, "Cousings", e.target)}
+    Children: ${pintaNodo(e.target, "children")}
+    Grandchildren:  ${pintaPrimos(e.target.children, "Grandchildren", e.target)}
     `);
         console.log(e.target.parentNode.nodeName);
     }
+
     const pintaNodo = (nodo, name) => {
         if (nodo) {
             return `nodeName: ${nodo.nodeName} id: ${(nodo["id"]) ? nodo["id"] : "no id"}`
         } else {
-            return `there are no ${name}.`; 
+            return `there are no ${name}.`;
         }
 
     }
+    const pintaPrimos = (nodos, name, evento) => {
+    let salida = "";
+    if (nodos && nodos.length > 0) { 
+        for (let uncle of nodos) {
+            if (evento.parentElement != uncle) {
+                salida += pintaMuchosNodos(uncle.children, name);
+            }
+        }
+    }
+    return salida;
+}
 
-    const pintaMuchosNodos = (nodos) => {
-        let cadena = "";
-        for (sibling of nodos) {
+const pintaMuchosNodos = (nodos, name) => {
+    let cadena = "";
+    if (nodos && nodos.length > 0) { 
+        for (let sibling of nodos) {
             cadena += `
-        nodeName: ${sibling.nodeName} id: ${(sibling["id"]) ? sibling["id"] : "no id"}`
+            nodeName: ${sibling.nodeName} id: ${(sibling["id"]) ? sibling["id"] : "no id"}`
         }
-        return cadena;
+    } else {
+        cadena = `No ${name} found.`;
     }
+    return cadena;
+}
     document.querySelector("#child2").addEventListener("click", analiza);
     document.querySelector("#child3 h4").addEventListener("click", analiza);
     document.querySelector("#person1 td").addEventListener("click", analiza);
