@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    img {
+        width: 100px;
+    }
+
+    .carrusel {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+
+<body>
+<!-- FORMA ENREVESADA CON HIDDEN 
+  (preguntar si era hidden o cual era el que se volvía inaccesible por si da conflico luego al ejecutarlo segun navegador o algo)--> 
+
+    <div class="carrusel">
+        <button class="prev">Prev</button>
+        <div class="imagenes">
+            <img src="e2DOM/doc.png">
+            <img src="e2DOM/gif.png" hidden>
+            <img src="e2DOM/iso.png" hidden>
+            <img src="e2DOM/und.png" hidden>
+            <img src="e2DOM/pdf.png" hidden>
+        </div>
+        <button class="next">Next</button>
+    </div>
+
+    <script>
+        const previa = () => {
+            const contenedor = document.querySelector(".imagenes");
+            const select = contenedor.querySelector("img:not([hidden])");
+            if (select.previousElementSibling) {
+                select.toggleAttribute("hidden");
+                select.previousElementSibling.toggleAttribute("hidden");
+            }
+        };
+        const siguiente = () => {
+            const contenedor = document.querySelector(".imagenes");
+            const select = contenedor.querySelector("img:not([hidden])");
+            if (select.nextElementSibling) {
+                select.toggleAttribute("hidden");
+                select.nextElementSibling.toggleAttribute("hidden");
+            }
+        };
+        document.querySelector(".prev").addEventListener("click", previa);
+        document.querySelector(".next").addEventListener("click", siguiente);
+    </script>
+
+<!-- FORMA MAS SIMPLE CON ARRAY  -->
+    <div class="carrusel">
+        <button class="prev2">Prev</button>
+        <div>
+            <img class="foco" src="e2DOM/doc.png">
+        </div>
+        <button class="next2">Next</button>
+    </div>
+
+    <script>
+        const images = ["e2DOM/doc.png",
+            "e2DOM/gif.png",
+            "e2DOM/iso.png",
+            "e2DOM/und.png",
+            "e2DOM/pdf.png",];
+        let sele = 0;
+
+        const previa2 = () => {
+            if (sele > 0) {
+                let foco = document.querySelector(".foco");
+                foco.src = images[--sele];
+            }
+        }
+        const siguiente2 = () => {
+            if (sele < images.length - 1) {
+                let foco = document.querySelector(".foco");
+                foco.src = images[++sele];
+            }
+        }
+        document.querySelector(".prev2").addEventListener("click", previa2);
+        document.querySelector(".next2").addEventListener("click", siguiente2);
+    </script>
+
+</body>
+
+</html>

@@ -1,14 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+        <h1>Lorem Ipsum Dolor Sit Amet GATO</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span>Lorem casa ipsum dolor sit</span> amet,
+            consectetur adipiscing elit.</p>
+        <div>
+            <h2>Consectetur Adipiscing Elit</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor sapien non ex fermentum, et
+                faucibus eros facilisis.</p>
+
+            <div>
+                <h2>Phasellus Auctor Sapien gato</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae velit neque. <span>Proin
+                        tempor</span> magna instancia 
+                    sit amet nisl aliquet.</p>
+
+                <div>
+                    <h3>Fusce Vitae Velit Neque</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id ex sapien. Praesent auctor,
+                        eros sed dictum facilisis, elit.</p>
+                </div>
+            </div>
+        </div>
 </body>
 <script>
+    const tabu = [
+        "patata", "casa", "gato", "palabro", "instancia", "botella", "cafe", "cha"
+    ];
+    const buscar = (nodo) => {
+        for (let childNode of nodo.childNodes) {
+            if (childNode instanceof Text) check(childNode)
+            if (childNode instanceof Element) buscar(childNode)
+        }
+    }
+
+    const check = (textNode) => {
+        for (t of tabu) {
+            let textoMinus = textNode.textContent.toLowerCase();
+            if (textoMinus.includes(t)) {
+                let block = "blocked content"
+                let negrita = document.createElement("b");
+                negrita.append(block)
+                textNode.replaceWith(negrita);
+            }
+        }
+    }
+    buscar(document.body);
 
 </script>
+
 </html>
