@@ -69,18 +69,18 @@
             "e2DOM/iso.png",
             "e2DOM/und.png",
             "e2DOM/pdf.png",];
-        let sele = 0;
+        let posicion = 0;
 
         const previa2 = () => {
-            if (sele > 0) {
+            if (posicion > 0) {
                 let foco = document.querySelector(".foco");
-                foco.src = images[--sele];
+                foco.src = images[--posicion];
             }
         }
         const siguiente2 = () => {
-            if (sele < images.length - 1) {
+            if (posicion < images.length - 1) {
                 let foco = document.querySelector(".foco");
-                foco.src = images[++sele];
+                foco.src = images[++posicion];
             }
         }
         document.querySelector(".prev2").addEventListener("click", previa2);
