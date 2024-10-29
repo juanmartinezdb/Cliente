@@ -6,3 +6,5 @@
 El change sucede cuando se sale del contenido que se esta tocand
 y si se ha producido un cambio
 */  
+
+//el evento onfocus, onblur (para el que está en uso y el que no)
