@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="text-center mt-3 col-6 m-0 ps-0">
-                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                            <button type="submit" class="btn btn-primary w-100">Refresh</button>
                         </div>
                     </div>
                     <div class="row">
@@ -73,7 +73,7 @@
     const patterns = {
         "expiration": {
             name: "Expiration Date",
-            keyPress: /^[\d/]+$/,
+            keyPress: /^[\d]+$/,
             validation: /^(0[1-9]|1[0-2])\/\d{2}$/,
             max: 5,
             errorMessage: "Expiration day must be a valid date and before current month",
@@ -126,7 +126,7 @@
     const validationFinal = (event) => {
         const pattern = patterns[event.target.id];
        let div =document.querySelector(("#validator-"+event.target.id));
-        div.classList.add("validado", "border", "rounded");
+        div.classList.add("border", "rounded");
 
 
         if (!pattern.validation.test(event.target.value) ||
@@ -134,10 +134,12 @@
             div.classList.add("invalid", "badge", "text-bg-danger");
             div.classList.remove("valid", "badge", "text-bg-success");
             event.target.classList.add("is-invalid");
+            event.target.classList.remove("is-valid");
             div.textContent = pattern.errorMessage;
         } else {
             div.classList.add("valid", "badge", "text-bg-success");
             div.classList.remove("invalid", "badge", "text-bg-danger");
+            event.target.classList.remove("is-invalid");
             event.target.classList.add("is-valid");
             div.textContent = pattern.name + " is valid";
         }
