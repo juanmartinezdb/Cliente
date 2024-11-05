@@ -41159,7 +41159,7 @@ const resetSelect = (destino, nombre) => {
     document.querySelector(destino).innerHTML = "";
     let opcion = document.createElement("option");
     opcion.textContent = "Seleccione una " + nombre;
-    opcion.setAttribute("value", "default")
+    opcion.setAttribute("value", "")
     document.querySelector(destino).appendChild(opcion);
 
 }
@@ -41176,7 +41176,7 @@ const selectProvincia = (event) => {
     comunidad = selectMap.find(c => c.code == event.target.value);
     resetSelect("#provincia", "provincia");
     resetSelect("#localidad", "localidad");
-    if (event.target.value != "default") {
+    if (event.target.value) {
         for (provincia of comunidad.provinces) {
             let opcion = document.createElement("option");
             opcion.textContent = provincia.label;
@@ -41189,7 +41189,7 @@ const selectProvincia = (event) => {
 const selectLocalidad = (event) => {
     provincia = comunidad.provinces.find(p => p.code == event.target.value);
     resetSelect("#localidad", "localidad");
-    if (event.target.value != "default") {
+    if (event.target.value) {
         for (localidad of provincia.towns) {
             let opcion = document.createElement("option");
             opcion.textContent = localidad.label;

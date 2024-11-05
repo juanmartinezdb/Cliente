@@ -22,18 +22,18 @@
                     <div class="col">
                         <label for="comunidad">Comunidad</label>
                         <select class="form-select" name="comunidad" id="comunidad">
-                            <option value="default">Seleccione una Comunidad Autónoma</option>
+                            <option value="">Seleccione una Comunidad Autónoma</option>
                         </select>
                     </div>
                     <div class="col">
                         <label for="provincia"> Provincia</label>
                         <select class="form-select" name="provincia "id="provincia">
+                       
                         </select>
                     </div>
                     <div class="col">
                         <label for="localidad">Localidad</label>
                         <select class="form-select" name="localidad" id="localidad">
-
                         </select>
                     </div>
                 </div>
@@ -45,9 +45,9 @@
             <hr>
             <fieldset class=" border rounded border-1 mt-5">
                 <div class="row p-3">
-                    <h3 class="col-11"><span class="contador">1</span>ª Persona autorizada:</h3>
+                    <h3 class="col-11"><span value="1" class="contador">1</span>ª Persona autorizada:</h3>
                     <div class="btn-group col-1 ">
-                        <button type="submit" class="btn btn-success">+</button>
+                        <button type="button" class="btn btn-success">+</button>
                         <button type="button" class="btn btn-danger">-</button>
                     </div>
                 </div>
@@ -76,8 +76,8 @@
                         </select>                        
                     </div>
                     <div class="col">
-                        <label for="nif">Nif/Nie/Pasaporte:</label>
-                        <input class="form-control" type="text" placeholder="Nif/Nie/Pasaporte" name="nif" id="nif">
+                        <label for="dni">Nif/Nie/Pasaporte:</label>
+                        <input class="form-control" type="text" placeholder="Nif/Nie/Pasaporte" name="dni" id="dni">
                     </div>
                     <div class="col">
                         <label for="telefono">Télefono:</label>
@@ -86,10 +86,14 @@
                     
                 </div>
             </fieldset>
+            <div class="autorithed">
+
+            </div>
         </form>
     </div>
 </body>
 <script src="Eform2.js"></script>
+<script src="Eform2_1.js"></script>
 
    
 

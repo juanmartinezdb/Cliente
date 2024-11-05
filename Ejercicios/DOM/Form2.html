@@ -106,18 +106,21 @@
 
     <script>
         let submit = document.querySelector("button");
-        submit.addEventListener("click", function(event) {
+        submit.addEventListener("click", function (event) {
             event.preventDefault();
             let inputs = document.querySelectorAll("input, select, textarea");
             let mostrar = document.querySelector("#mostrar");
+            mostrar.innerHTML="";
             for (let input of inputs) {
                 console.log(input);
-                if (!input.value){
+                if (!input.value) {
                     input.classList.add("is-invalid");
+                } 
+                if ((["radio", "checkbox"].includes(input.type) && input.checked) 
+                    || !["radio", "checkbox"].includes(input.type)) {
+                    mostrar.innerHTML += `<p> name: ${input.name} id: ${input.id} value: ${input.value} type: ${input.type} </p>`;
                 }
-                mostrar.innerHTML+= `<p> name: ${input.name} id: ${input.id} value: ${input.value} </p>`;
             }
-            
         });
 
 
