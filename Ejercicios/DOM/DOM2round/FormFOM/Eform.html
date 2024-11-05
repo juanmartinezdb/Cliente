@@ -133,11 +133,13 @@
             ((event.target.id == "expiration") && !checkExpirationDate(event.target.value))) {
             div.classList.add("invalid", "badge", "text-bg-danger");
             div.classList.remove("valid", "badge", "text-bg-success");
+            event.target.classList.remove("is-valid");
             event.target.classList.add("is-invalid");
             div.textContent = pattern.errorMessage;
         } else {
             div.classList.add("valid", "badge", "text-bg-success");
             div.classList.remove("invalid", "badge", "text-bg-danger");
+            event.target.classList.remove("is-invalid");
             event.target.classList.add("is-valid");
             div.textContent = pattern.name + " is valid";
         }
