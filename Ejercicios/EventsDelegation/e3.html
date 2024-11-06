@@ -18,6 +18,10 @@
         }
     </style>
 </head>
+<!-- //Ejercico de formulario y uno de un json 
+ Bootstrap cards, badgets, 
+ revisar .style.display="none"
+ -->
 
 <body>
     <div class="container px-5 pt-2 fs-4">
@@ -27,7 +31,7 @@
                     <th id="2">Name</th>
                     <th id="3">Surname</th>
                     <th id="4">Age</th>
-                    <th id="5">Alive</th>
+                    <th id="5">Emancipated</th>
                     <th id="6">Delete</th>
                 </tr>
             </thead>
@@ -63,6 +67,32 @@
             </tbody>
         </table>
     </div>
+    <div class="container">
+        <form name="vista" class="border border-success">
+            <div class="row p-1">
+                <div class="col-2">
+                    <label for="name">Name:</label>
+                    <input class="form-control" type="text" id="name" name="name">
+                </div>
+                <div class="col-2">
+                    <label for="surname">Surname:</label>
+                    <input class="form-control" type="text" id="surname" name="surname">
+                </div>
+                <div class="col-2">
+                    <label for="age">Age:</label>
+                    <input class="form-control" type="text" id="age" name="age">
+                </div>
+                <div class="col-1 form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="emancipated">
+                    <label class="form-check-label" for="emancipated"> Emancipated </label>
+                </div>
+                <div class="col-1 align-self-end">
+                    <button name="send" class="btn btn-success" type="button"> OK</button>
+                </div>
+            </div>
+            <input name="row" type="text" value="" hidden>
+        </form>
+    </div>
     <div class="container fs-6">
         <div class="row">
             <div class="col-3 info">
@@ -87,8 +117,15 @@
     - textContent de la fila, una lista con los textContent de las celdas de la row.
     -textContent de la columna, y una lista igual que la de la fila de arriba.
     */
-    let coso = document.querySelector("p");
     let tabla = document.querySelector("table");
+
+    const arrayColumn = (index) =>{
+        let column = [];
+        for (row of tabla.rows){
+            column.push(row.cells[index]);
+        }
+        return column;
+    } 
     const resetBackground = () => {
         let rowCol = document.querySelectorAll("td, tr, th");
         rowCol.forEach(rw => {
@@ -106,6 +143,7 @@
         let row = tabla.rows[rowI]
 
         div.innerHTML = `<p>Row Number: ${rowI}</p>
+        <p>Id: ${elem.id}</p>
                 <p>Column Number: ${colI}</p>
                 <p>Content: ${elem.textContent}</p>
  `
@@ -114,13 +152,13 @@
                 <p>id: ${row.id}</p>
                 <p>Content: ${row.textContent}</p>
  `
-let stringIds ="";
-let stringContent= "";
-        for (row of tabla.rows){
-            for (cell of row.cells){
-                if (cell.cellIndex==colI){
-                    stringIds+=cell.id+" ";
-                    stringContent+=cell.textContent+" ";
+        let stringIds = "";
+        let stringContent = "";
+        for (row of tabla.rows) {
+            for (cell of row.cells) {
+                if (cell.cellIndex == colI) {
+                    stringIds += cell.id + " ";
+                    stringContent += cell.textContent + " ";
                 }
             }
         }
@@ -129,7 +167,7 @@ let stringContent= "";
                 <p>id: ${stringIds}</p>
                 <p>Content: ${stringContent}</p>
  `
-        
+
 
     }
     const backgroundChangesSelf = (event) => {
@@ -148,24 +186,57 @@ let stringContent= "";
         elem.parentElement.classList.add("table-secondary");
         let col = elem.cellIndex;
         for (row of tabla.rows) {
-            for (cell of row.cells) {
-                if (cell.cellIndex == col) {
-                    row.cells[col].classList.add("table-secondary");
-                }
-            }
+            row.cells[col].classList.add("table-secondary");
         }
-
     }
-    // coso.classList.add("bg-success");
+    const fillForm = (elem) => {
+        let rows = tabla.rows[elem.parentElement.rowIndex];
+        let form = document.forms.vista;
+        for (let i = 0; i < rows.cells.length-1; i++) {
+            form[i].value = rows.cells[i].textContent;
+            if (form[i].type=="checkbox"){
+                (form[i].value=="✅")?form[i].checked=true:form[i].checked=false;
+            }            
+        }
+        form.row.value=elem.parentElement.rowIndex;
+        console.log(form.row.value);
+    }
+const editRow = (event) =>{
+    let form = document.forms.vista;
+    let row = tabla.rows[form.row.value];
+    console.log(row);
+    let confirmado = true;
+    if (row.dataset.edited>2){
+        confirmado = confirm("Has editado esta fila varias veces estás seguro?")
+    }
+    if (confirmado){
+        (row.dataset.edited)?
+            row.dataset.edited=+row.dataset.edited+1:
+            row.dataset.edited=1;       
+        for (let i= 0; i<row.cells.length-1;i++){
+            row.cells[i].textContent=form[i].value;
+        }
+        }
+    }
+
+    const removeRow = (elem) =>{
+
+            if (elem.cellIndex==4){
+                elem.parentElement.remove();
+            }
+    }
     const eventosTabla = (event) => {
         let elem = event.target;
         displayInfo(elem);
         resetBackground();
         backgroundChangesSelf(event);
         backgroundChangesOther(elem);
+        fillForm(elem);
+        removeRow(elem);
     }
 
     tabla.addEventListener("click", eventosTabla);
+    document.forms.vista.send.addEventListener("click", editRow);
 </script>
 
 </html>

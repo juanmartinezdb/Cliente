@@ -25,27 +25,30 @@ const addPerson = (event) =>{
     contador = document.querySelector(".contador");
     if(validate() && contador.textContent<=5){
         let person = document.createElement("div");
-        let registro = document.createElement("p");
-        registro.classList.add("fw-bold")
-        person.appendChild(registro);
-        registro.textContent=nombre.value+
-        +" "+apellido1.value
-        +" "+(apellido2.value?apellido2.value:"")
-        +" Dni:"+(dni.value)
-        +(telefono.value?" Tlf:"+telefono.value:"");
+        person.classList.add("fw-bold", "col-6");
+        person.innerHTML=`
+        <p>${nombre.value} ${apellido1.value} 
+        ${(apellido2.value)?apellido2.value:""} 
+        ${dni.value} ${telefono.value?" Tlf:"+telefono.value:""}</p>
+        `
+        let borrar = document.createElement("button");
+        borrar.classList.add("btn", "btn-danger");
+        borrar.textContent="borrar";
+        person.appendChild(borrar);
         autorithed.appendChild(person);
+        
         contador.textContent=+contador.textContent+1;
     }
 }
 
-const removePerson = (event) =>{
-    document.querySelectorAll(".autorithed p").forEach(p=> {
-        if (p.textContent.includes(dni.value)){
-            p.remove();
-            contador.textContent=+contador.textContent-1;
-        }
-    })
-}
+// const removePerson = (event) =>{
+//     document.querySelectorAll(".autorithed p").forEach(p=> {
+//         if (p.textContent.includes(dni.value)){
+//             p.remove();
+//             contador.textContent=+contador.textContent-1;
+//         }
+//     })
+// }
 
 document.querySelector(".btn-success").addEventListener("click", addPerson);
 document.querySelector(".btn-danger").addEventListener("click", removePerson);
