@@ -36,19 +36,16 @@ const addPerson = (event) =>{
         borrar.textContent="borrar";
         person.appendChild(borrar);
         autorithed.appendChild(person);
-        
+       
         contador.textContent=+contador.textContent+1;
+        borrar.addEventListener("click", (event) => {
+            event.preventDefault();
+            person.remove();
+            
+        });
     }
 }
 
-// const removePerson = (event) =>{
-//     document.querySelectorAll(".autorithed p").forEach(p=> {
-//         if (p.textContent.includes(dni.value)){
-//             p.remove();
-//             contador.textContent=+contador.textContent-1;
-//         }
-//     })
-// }
 
 document.querySelector(".btn-success").addEventListener("click", addPerson);
-document.querySelector(".btn-danger").addEventListener("click", removePerson);
+// document.querySelector(".btn-danger").addEventListener("click", removePerson);
