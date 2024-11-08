@@ -44,3 +44,24 @@ function createPerson(nameA,surnameB, ...cities){
 }
 createPerson('Nick','Anderson', 'Malaga','Sevilla','Madrid');
 
+
+///
+const agenda = [];
+
+cons tagenda = document.forms.agendaForm;
+
+document.getElementById("btnAdd").addEventListener("click") , ()=> {
+
+    
+}
+const nombre = fagenda.txtNombre.value.trim();
+const apellidos = fagenda.txtApellidos.value.trim();
+const telefono = fagenda.txtTelefono.value.trim();
+const dato = fagenda.inlineRadioOptions.value;
+
+//Crear un objeto mucho mas breve y sencilla que ir campo por campo!
+const contacto = {usuario, nombre, apellidos, telefonos, dato};
+agenda.push(contacto); 
+
+showAgenda();
+resetForm();
