@@ -1,3 +1,16 @@
+// se pueden usar collecciones HTML, y demas movidas con el spread operator y pasarlas a un array, y asi usar 
+//los metodos de array. 
+let div = document.createElement("div");
+let i;
+while ( i<20){
+    let div2 = document.createElement("div");
+    div.appendChild(div);
+    i++;
+}
+[...div.children].map(e => e.classList.add("patata"));
+
+
+
 
 //Funcion con lambda
 let sum = (a, b) => a+b;
@@ -46,22 +59,29 @@ createPerson('Nick','Anderson', 'Malaga','Sevilla','Madrid');
 
 
 ///
-const agenda = [];
+// const agenda = [];
 
-cons tagenda = document.forms.agendaForm;
 
-document.getElementById("btnAdd").addEventListener("click") , ()=> {
+// const tagenda = document.forms.agendaForm;
+
+// document.getElementById("btnAdd").addEventListener("click") , ()=> {
 
     
-}
-const nombre = fagenda.txtNombre.value.trim();
-const apellidos = fagenda.txtApellidos.value.trim();
-const telefono = fagenda.txtTelefono.value.trim();
-const dato = fagenda.inlineRadioOptions.value;
+// }
+// const nombre = fagenda.txtNombre.value.trim();
+// const apellidos = fagenda.txtApellidos.value.trim();
+// const telefono = fagenda.txtTelefono.value.trim();
+// const dato = fagenda.inlineRadioOptions.value;
 
-//Crear un objeto mucho mas breve y sencilla que ir campo por campo!
-const contacto = {usuario, nombre, apellidos, telefonos, dato};
-agenda.push(contacto); 
+// //Crear un objeto mucho mas breve y sencilla que ir campo por campo!
+// const contacto = {usuario, nombre, apellidos, telefonos, dato};
+// agenda.push(contacto); 
 
-showAgenda();
-resetForm();
+// showAgenda();
+// resetForm();
+
+const cadena = "patata caliente";
+let [tuberculo, temperatura] = cadena.split(" ");
+console.log(tuberculo);
+console.log(temperatura);
+
