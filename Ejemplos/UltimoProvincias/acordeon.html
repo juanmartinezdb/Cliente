@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://via.placeholder.com/1"type="image/x-icon">
+    <title>Provincias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+<!-- Formulario -->
+<form name="ordenacion">
+    <select class="form-select orden" aria-label="Seleccionar orden">
+        <option selected>Seleccionar orden</option>
+        <option value="alpha">Alfabetico</option>
+        <option value="number">Por numero de pueblos</option>
+      </select>
+      <select class="form-select direccion" aria-label="Seleccionar ascendente o descendente">
+        <option selected>Ascendente o Descendente</option>
+        <option value="asc">Ascendente</option>
+        <option value="desc">Descendente</option>
+      </select>
+      <button class="btn btn-primary enviar" type="submit"> Ordenar</button>
+</form>
+      <div class="accordion" id="General">
+
+      </div> 
+</body>
+<script src="provincias.js"></script>
+<script>
+
+const general = document.querySelector("#General");
+const orden = document.querySelector(".orden").value;
+const direccion = document.querySelector(".direccion").value;
+
+const rellenaAcordeon = (padre, item, categoria) => {
+    const divInterior = document.createElement("div");
+                divInterior.classList.add("according-item");
+                divInterior.innerHTML = `
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed d-flex flex-column align-items-start"
+                 type="button" data-bs-toggle="collapse"
+                  data-bs-target="#${categoria}${item.code}" aria-expanded="false" 
+                  aria-controls="${categoria}${item.code}">
+                    <h3>${item.label}</h3>
+                    <p> <span>${(item.provinces)?item.provinces.length:item.towns.length}</span>${item.provinces?"Provinces":"Towns"}</p>
+                </button>
+            </h2>
+            <div id="${categoria}${item.code}" class="accordion-collapse collapse">
+                <div class="accordion-body" id="${categoria}A${item.code}">
+
+
+      </div>
+                </div>
+            </div>
+        </div>
+                ` 
+                padre.appendChild(divInterior); 
+}
+
+
+const ordenar = (orden, direccion) => {  
+
+    provincias.forEach(comunidad => {
+            // if ("alpha"==orden){
+            //     if (direccion=="asc"){
+
+            //         provincias.sort();
+            //     } else {
+            //         provincias.sort().reverse();
+            //     }      
+            rellenaAcordeon(general, comunidad, "comunidad");    
+                const provinciaInt = document.querySelector("#comunidadA"+comunidad.code);
+                comunidad.provinces.forEach( p => {
+                    rellenaAcordeon(provinciaInt, p, "provincia")    
+                    const pueblos = document.querySelector("#provinciaA"+p.code);
+                    console.log(pueblos);                    
+                    const ul = document.createElement("ul");
+                    pueblos.appendChild(ul);
+                    p.towns.forEach (t => {
+                        const li = document.createElement("li");
+                        li.textContent = t.label;
+                        ul.appendChild(li);
+                    })
+                })
+
+
+            // } else {
+
+            // }
+            
+        });
+
+}
+document.querySelector(".enviar").addEventListener("click", (event) => {
+    event.preventDefault(); 
+    ordenar(orden, direccion);
+})
+
+
+
+
+</script>
+
+</html>
