@@ -10,98 +10,126 @@
 </head>
 <body>
 <!-- Formulario -->
-<form name="ordenacion">
-    <select class="form-select orden" aria-label="Seleccionar orden">
-        <option selected>Seleccionar orden</option>
-        <option value="alpha">Alfabetico</option>
-        <option value="number">Por numero de pueblos</option>
-      </select>
-      <select class="form-select direccion" aria-label="Seleccionar ascendente o descendente">
-        <option selected>Ascendente o Descendente</option>
-        <option value="asc">Ascendente</option>
-        <option value="desc">Descendente</option>
-      </select>
-      <button class="btn btn-primary enviar" type="submit"> Ordenar</button>
-</form>
+    <div class="container m-3">
+        <select class="form-select orden ordenacion" name="orden" aria-label="Seleccionar orden">
+            <option value="" selected>Seleccionar orden</option>
+            <option value="alpha">Alfabético</option>
+            <option value="number">Por número de pueblos</option>
+        </select>
+        <select class="form-select direccion ordenacion" name="direccion" aria-label="Seleccionar ascendente o descendente">
+            <option value="" selected>Ascendente o Descendente</option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+        </select>
+        
+    </div>
       <div class="accordion" id="General">
 
       </div> 
 </body>
 <script src="provincias.js"></script>
 <script>
-
 const general = document.querySelector("#General");
-const orden = document.querySelector(".orden").value;
-const direccion = document.querySelector(".direccion").value;
+const orden = document.querySelector(".orden");
+const direccion = document.querySelector(".direccion");
 
+// patrones de ordenacion
+const ordenar = (orden, direccion, array) => {
+    const patron = {
+        alpha: (a, b) => a.label.localeCompare(b.label),
+        number: (a, b) => {
+            const totalCiudadesA = a.provinces ? a.provinces.reduce((sum, provincia) => sum + provincia.towns.length, 0) : a.towns.length;
+            const totalCiudadesB = b.provinces ? b.provinces.reduce((sum, provincia) => sum + provincia.towns.length, 0) : b.towns.length;
+            return totalCiudadesA - totalCiudadesB;
+        }
+    };
+    
+    if (!Array.isArray(array)) {
+        console.error("El argumento proporcionado no es un array");
+        return array; // Retornamos el array sin cambios para evitar errores.
+    }
+
+    // Ordenar en base al patrón especificado
+    array.sort(patron[orden]);  
+    if (direccion === "desc") {
+        array.reverse();
+    }
+    return array;
+}
+
+// Constructor de acordeones
 const rellenaAcordeon = (padre, item, categoria) => {
+    let totalPueblos;
+
+    if (categoria === "comunidad") {
+        totalPueblos = item.provinces.reduce((sum, provincia) => sum + provincia.towns.length, 0);
+    } else if (categoria === "provincia") {
+        totalPueblos = item.towns.length;
+    }
+
     const divInterior = document.createElement("div");
-                divInterior.classList.add("according-item");
-                divInterior.innerHTML = `
-          <div class="accordion-item">
+    divInterior.classList.add("according-item");
+    divInterior.innerHTML = `
+        <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed d-flex flex-column align-items-start"
-                 type="button" data-bs-toggle="collapse"
-                  data-bs-target="#${categoria}${item.code}" aria-expanded="false" 
-                  aria-controls="${categoria}${item.code}">
-                    <h3>${item.label}</h3>
-                    <p> <span>${(item.provinces)?item.provinces.length:item.towns.length}</span>${item.provinces?"Provinces":"Towns"}</p>
+                <button class="accordion-button collapsed d-flex flex-column align-items-start justify-content-between"
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#${categoria}${item.code}" aria-expanded="false" 
+                    aria-controls="${categoria}${item.code}">
+                    <div class="d-flex justify-content-between w-100 align-items-center">
+                        <div>
+                            <h3>${item.label}</h3>
+                            <p> <span>${(item.provinces) ? item.provinces.length : item.towns.length}</span> ${(item.provinces) ? "Provinces" : "Towns"}</p>
+                            </div>
+                        <span class="badge bg-primary ms-2">${totalPueblos} Pueblos</span>
+                    </div>
                 </button>
             </h2>
             <div id="${categoria}${item.code}" class="accordion-collapse collapse">
                 <div class="accordion-body" id="${categoria}A${item.code}">
-
-
-      </div>
                 </div>
             </div>
         </div>
-                ` 
-                padre.appendChild(divInterior); 
+    `;
+    padre.appendChild(divInterior);
 }
 
+const pintar = (ordenValue, direccionValue) => {
+    general.innerHTML = "";
 
-const ordenar = (orden, direccion) => {  
+    ordenar(ordenValue, direccionValue, provincias);
 
     provincias.forEach(comunidad => {
-            // if ("alpha"==orden){
-            //     if (direccion=="asc"){
 
-            //         provincias.sort();
-            //     } else {
-            //         provincias.sort().reverse();
-            //     }      
-            rellenaAcordeon(general, comunidad, "comunidad");    
-                const provinciaInt = document.querySelector("#comunidadA"+comunidad.code);
-                comunidad.provinces.forEach( p => {
-                    rellenaAcordeon(provinciaInt, p, "provincia")    
-                    const pueblos = document.querySelector("#provinciaA"+p.code);
-                    console.log(pueblos);                    
-                    const ul = document.createElement("ul");
-                    pueblos.appendChild(ul);
-                    p.towns.forEach (t => {
-                        const li = document.createElement("li");
-                        li.textContent = t.label;
-                        ul.appendChild(li);
-                    })
-                })
+        rellenaAcordeon(general, comunidad, "comunidad");
+        const provinciaInt = document.querySelector("#comunidadA" + comunidad.code);
+        ordenar(ordenValue, direccionValue, comunidad.provinces);
 
+        comunidad.provinces.forEach(p => {
 
-            // } else {
+            rellenaAcordeon(provinciaInt, p, "provincia");
+            const pueblos = document.querySelector("#provinciaA" + p.code);
+            const ul = document.createElement("ul");
+            pueblos.appendChild(ul);
 
-            // }
-            
+            p.towns.forEach(t => {
+
+                const li = document.createElement("li");
+                li.textContent = t.label;
+                ul.appendChild(li);
+            });
         });
-
+    });
 }
-document.querySelector(".enviar").addEventListener("click", (event) => {
-    event.preventDefault(); 
-    ordenar(orden, direccion);
-})
 
-
-
-
+document.querySelectorAll(".ordenacion").forEach(e => {
+    e.addEventListener("change", (event) => {
+        event.preventDefault();
+        console.log(orden.value);
+        console.log(direccion.value);
+        pintar(orden.value, direccion.value);
+    });
+});
 </script>
 
 </html>
