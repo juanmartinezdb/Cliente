@@ -156,3 +156,4 @@ switch (fruta) {
         console.log("Fruta no conocida");
         break;
 }
+
