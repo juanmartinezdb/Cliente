@@ -27,7 +27,9 @@
 
       </div> 
 </body>
+
 <script src="provincias.js"></script>
+
 <script>
 const general = document.querySelector("#General");
 const orden = document.querySelector(".orden");
@@ -43,13 +45,7 @@ const ordenar = (orden, direccion, array) => {
             return totalCiudadesA - totalCiudadesB;
         }
     };
-    
-    if (!Array.isArray(array)) {
-        console.error("El argumento proporcionado no es un array");
-        return array; // Retornamos el array sin cambios para evitar errores.
-    }
 
-    // Ordenar en base al patrón especificado
     array.sort(patron[orden]);  
     if (direccion === "desc") {
         array.reverse();
@@ -93,7 +89,7 @@ const rellenaAcordeon = (padre, item, categoria) => {
     `;
     padre.appendChild(divInterior);
 }
-
+// pinturero
 const pintar = (ordenValue, direccionValue) => {
     general.innerHTML = "";
 
