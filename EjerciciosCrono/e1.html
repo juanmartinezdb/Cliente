@@ -70,7 +70,7 @@
     const rellenaSelect = () => {
         const option = document.createElement("option");
         option.textContent = "Seleccione un contienente";
-        option.value = "";
+        option.value = "all";
         formSelect.appendChild(option);
         companies.forEach(c => {
             const option = document.createElement("option");
@@ -122,8 +122,9 @@
         arrayPaises.forEach(co => {
             const tr = document.createElement("tr");
             co.companies.forEach (c => {
-                tr.textContent += Object.keys(c);                
+                tr.textContent += Object.keys(c)+", ";                
             })
+            tr.textContent = tr.textContent.slice(0, (tr.textContent.length-2));
             tdCompanies.appendChild(tr);
         });
     }
