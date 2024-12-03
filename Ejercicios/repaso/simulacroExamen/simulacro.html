@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+        <link rel="shortcut icon" href="https://via.placeholder.com/1"type="image/x-icon">
+</head>
+
+<body>
+
+    <form action="">
+        <div class="container m-5">
+            <!-- Radio buttons -->
+            <!-- <div class="mb-3 d-flex ">
+                <label class="form-label me-3">Opciones de busqueda: </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioOptions" id="option1" value="opcion1"
+                        required>
+                    <label class="form-check-label" for="option1">title</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radioOptions" id="option2" value="opcion2">
+                    <label class="form-check-label" for="option2">isbn</label>
+                </div>
+            </div> -->
+            <!-- Checkbox -->
+            <div class="mt-3 d-flex flex-wrap">
+                <label class="form-label me-2">Filter:</label>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="isbn" value="isbn">
+                    <label class="form-check-label" for="isbn">ISBN</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="title" value="title">
+                    <label class="form-check-label" for="title">Title</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="subtitle" value="subtitle">
+                    <label class="form-check-label" for="subtitle">subtitle</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="author" value="author">
+                    <label class="form-check-label" for="author">author</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="published" value="published">
+                    <label class="form-check-label" for="published">published</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="publisher" value="publisher">
+                    <label class="form-check-label" for="publisher">publisher</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="pages" value="pages">
+                    <label class="form-check-label" for="pages">pages</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="description" value="description">
+                    <label class="form-check-label" for="description">description</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" id="website" value="website">
+                    <label class="form-check-label" for="website">website</label>
+                </div>
+            </div>
+            <div>
+                <span class="badge text-bg-primary errorFilter"></span>
+            </div>
+
+            <!-- Input de número -->
+            <!-- <div class="mb-3 d-flex col-lg-4 col-md-8">
+                    <label for="numberInput" class="form-label">Número</label>
+                    <input type="number" class="form-control" id="numberInput" min="1" max="100" required>
+                    <div class="invalid-feedback">Introduce un número entre 1 y 100.</div>
+                </div> -->
+
+            <!-- barra busqueda -->
+            <div class="input-group m-3">
+                <button class="btn btn-outline-secondary buscar" type="button" id="button-addon1">Buscar</button>
+                <input type="text" class="form-control busqueda" placeholder="Usa cualquiera de los filtros para buscar un libro" aria-label="Example text with button addon"
+                    aria-describedby="button-addon1">
+            </div>
+            <div>
+                <span class="badge text-bg-primary errorSearch"></span>
+            </div>
+            <!-- Botón de envío -->
+            <!-- <button type="submit" class="btn btn-primary">Enviar</button> -->
+    </form>
+    </div>
+    </div>
+    </form>
+
+    <!-- tarjeta -->
+    <div class="container d-flex flex-wrap gap-2 resultados">
+        <!-- <div>
+            <div class="card bg-primary-subtle" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <hr>
+                    <p><b>Author:</b> <span></span></p>
+                    <p><b>published:</b> <span></span></p>
+                    <p><b>publisher:</b> <span></span></p>
+                    <p><b>pages36:</b> <span></span></p>
+                    <a href="#" class="card-link">Card link</a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+</body>
+<script src="libros.js"></script>
+<script>
+    const filters = document.querySelectorAll(".form-check-input");
+    const resultados = document.querySelector(".resultados");
+
+
+const busquedaCritero = (criterio, busqueda, array) => {
+    //el ? es para que no intente ejecutarlo si es nulo o indefinido
+    const news = books.filter(b => b[criterio]?.toLowerCase().includes(busqueda.toLowerCase()));
+    const nuevos = news.filter(n => !array.some(b => b.isbn === n.isbn));
+    array.push(...nuevos);
+}
+
+    const crearTarjeta = (libro) => {
+        const div = document.createElement("div");
+        resultados.appendChild(div);
+        div.innerHTML = `
+            <div class="card bg-primary-subtle" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${libro.title}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">${libro.subtitle}</h6>
+                    <p class="card-text">${libro.descripcion}.</p>
+                    <hr>
+                    <p><b>Author:</b> <span>${libro.author}</span></p>
+                    <p><b>published:</b> <span>${libro.published}</span></p>
+                    <p><b>publisher:</b> <span>${libro.publisher}</span></p>
+                    <p><b>pages36:</b> <span>${libro.pages}</span></p>
+                    <a href="${libro.website}" class="card-link">Website</a>
+                </div>
+            </div>
+`
+    }
+
+
+    document.querySelector(".buscar").addEventListener("click", () => {
+        const selectFiltros = [];
+        const busqueda = document.querySelector(".busqueda").value;
+        const encontrados = [];
+        if (busqueda) {
+            filters.forEach(f => {
+                if (f.checked) {
+                    selectFiltros.push(f.value);
+                }
+            });
+            if (selectFiltros.length > 0) {
+                
+                document.querySelector(".errorFilter").textContent = "";
+                document.querySelector(".errorSearch").textContent = "";
+                selectFiltros.forEach( criterio => {
+                    busquedaCritero(criterio,busqueda,encontrados);
+                })
+            if (encontrados){
+                resultados.innerHTML="";
+                encontrados.forEach( libro => crearTarjeta(libro));
+            }
+                
+            } else {
+                document.querySelector(".errorFilter").textContent = "Por favor, marca alguna casilla de filtro para poder buscar";
+                
+            }
+        } else {
+            document.querySelector(".errorSearch").textContent ="Por favor, indica arriba que libro quieres buscar";
+
+        }
+            
+        })
+        
+        </script>
+        
+</html>
