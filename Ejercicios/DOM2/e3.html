@@ -36,7 +36,7 @@
         "patata", "casa", "gato", "palabro", "instancia", "botella", "cafe", "cha"
     ];
     const buscar = (nodo) => {
-        for (let childNode of nodo.childNodes) {
+        for (childNode of nodo.childNodes) {
             if (childNode instanceof Text) check(childNode)
             if (childNode instanceof Element) buscar(childNode)
         }
@@ -46,7 +46,7 @@
         for (t of tabu) {
             let textoMinus = textNode.textContent.toLowerCase();
             if (textoMinus.includes(t)) {
-                let block = "blocked content"
+                let block = "blocked content";
                 let negrita = document.createElement("b");
                 negrita.append(block)
                 textNode.replaceWith(negrita);

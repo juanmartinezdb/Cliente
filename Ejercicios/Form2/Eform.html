@@ -147,17 +147,14 @@
     }
 
     const checkExpirationDate = (value) => {
-        let fecha = value.split("/");
+        let [mes, anio] = value.split("/");
         const today = new Date();
-        if (fecha[1] < (today.getYear() - 100) ||
-            fecha[1] == (today.getYear() - 100) && fecha[0] < (today.getMonth() + 1)) {
+        if (anio < (today.getYear() - 100) ||
+            anio == (today.getYear() - 100) && mes < (today.getMonth() + 1)) {
             return false;
         } else {
             return true;
         }
-
-
-
     }
     document.querySelectorAll("input").forEach((input) => {
         input.addEventListener("input", keyValidation);

@@ -164,9 +164,7 @@ const busquedaCritero = (criterio, busqueda, array) => {
                 }
             });
             if (selectFiltros.length > 0) {
-                
-                document.querySelector(".errorFilter").textContent = "";
-                document.querySelector(".errorSearch").textContent = "";
+
                 selectFiltros.forEach( criterio => {
                     busquedaCritero(criterio,busqueda,encontrados);
                 })
