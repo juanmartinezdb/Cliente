@@ -1,24 +1,45 @@
 let csvToArrayCuerpo =(csv, separador=",") =>{
-    let filas = csv.split("/n");
+    let filas = csv.split('\n');
+
+  
     filas.shift();
-    filas.split(separador);
+    console.log(filas);
+    
+    filas= filas.map(f =>f.split(separador));
+    console.log(filas);    
     return filas;
-}
-let csvToArrayCabecera (csv, separador=",")=> {
-    let filas = csv.split("/n");
+};
+
+let csvToArrayCabecera = (csv, separador=",")=> {
+    let filas = csv.split("\n");
     let cabecera = filas[0].split(separador);
+    console.log(cabecera);
+    
     return cabecera;
 }
 
-filas = csvToArrayCuerpo(csv);
-cabecera = csvToArrayCabecera(csv);
+let filas = csvToArrayCuerpo(csv);
+let cabecera = csvToArrayCabecera(csv);
 
 let rellenarTabla = (filas, cabecera) =>{
+    const cabeza = document.querySelector("#cabeza");
     for (let item of cabecera){
-        console.log(item);
-        document.querySelector("#cabeza").innerHTML +="<td>"+item+"</td>";
+        let fila = document.createElement("th");
+        fila.textContent=item;
+        cabeza.appendChild(fila);
+    } 
+     const cuerpo =document.querySelector("#cuerpo");
+     for (let item of filas){
+        let fila = document.createElement("tr");
+        cuerpo.appendChild(fila);
+        item.forEach(e => {
+            const tr = document.createElement("td");
+            tr.textContent=e;
+            fila.appendChild(tr);
+        });
      } 
 }
+rellenarTabla (filas, cabecera);
 
 
 

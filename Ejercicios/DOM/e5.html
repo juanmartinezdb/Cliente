@@ -13,7 +13,7 @@
 </style>
 
 <body>
-    <table border=2px>
+    <table>
         <tr>
             <td style="background-color: rgb(64, 146, 218);">1</td>
             <td>2</td>
@@ -46,6 +46,7 @@
     
     const pintaTabla = (colours) => {
         let tabla = document.querySelector("table");
+        tabla.border = "2px";
         contador = 0;
         for (let fila of tabla.rows) {
             for (let celda of fila.cells) {

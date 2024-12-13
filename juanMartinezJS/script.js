@@ -205,7 +205,7 @@ const mostrarDetalles = (e) => {
             const indice = pelis.indexOf(peli);
             console.log(updatedRating.value);
             pelis[indice].imdbRating = updatedRating.value;
-            mostrarDetalles(e);
+                    ficha.removeChild(ficha.lastElementChild);
             mostrarDetalles(e);
         })
     }

@@ -29,11 +29,16 @@
         let columna1 = document.querySelector("tr");
         let celdas = columna1.querySelectorAll("td").length;
         console.log(celdas);
-        for (let i = 0; i < celdas; i++) {
-                let td = document.createElement("td");
+        for (i of columna1.querySelectorAll("td")){
+            let td = document.createElement("td");
                 td.textContent= "top";
                 tr.append(td);
         }
+        // for (let i = 0; i < celdas; i++) {
+        //         let td = document.createElement("td");
+        //         td.textContent= "top";
+        //         tr.append(td);
+        // }
         tabla.prepend(tr);
     }
     const crearFilaAbajo = (nombre) => {
