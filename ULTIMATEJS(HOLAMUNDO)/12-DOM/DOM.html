@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="cuerpo" name="body"></div>
+    <p class="red">1</p>
+    <p class="red">2</p>
+    <p class="red">3</p>
+    <p class="blue" name="chanchito">4</p>
+</body>
+</html>
+<script>
+    //DOCUMENT OBJET MODEL
+    //selectores
+//HTML(tipo)Element 
+    let cuerpo = document.getElementById('cuerpo');
+console.log(Object.getPrototypeOf(cuerpo));//que tipo de objeto es
+
+//nos devuelve un htmlcollection (se parece a un array, pero no es una array!)
+    let rojos = document.getElementsByClassName('red');
+
+//Nos devuelve un NodeList 
+let chancho = document.getElementsByName('chanchito');
+console.log(chancho);
+
+//nos devuelve una HTMLCollection
+let parrafos = document.getElementsByTagName('p');
+console.log(parrafos);
+
+//HTML(tipo)Element uno solo; //son metodos leeentos
+let el = document.querySelector('#cuerpo');
+//Nos devuelve una NodeList
+let elem = document.querySelectorAll('p');
+
+//diferencia entre htmlcollection y NodeList
+//LA HTMLCollection siempre va a estar sincronizada con los cambios en el DOM
+//y la NodeList no.
+let collection = document.getElementsByTagName('p');
+let list = document.querySelectorAll('p');
+console.log(collection, list);
+let nuevoP = document.createElement('p');
+nuevoP.classList.add('nuevoParrafo');
+document.body.append(nuevoP);
+console.log(collection, list);
+
+//htmlcolections vs NodeList
+let item1 = collection.namedItem('chanchito');
+let item2 = collection.item(3);
+let item3 = collection[3];
+
+console.log(item1);
+console.log(item2);
+console.log(item3);
+
+//htmlcollection no tiene metodos de iterar como .forEach pero...
+console.log('iterando un htmlCollection Metodo 1');
+for (let el of collection) {
+    console.log(el);
+}
+//2ºforma pasarlo a Array
+console.log('iterando un htmlCollection Metodo 2');
+Array.from(collection).forEach(e => console.log(e)); //accede al OBJETO
+[...collection].forEach(e => console.log(e)); //accede al elemento mismo (YO LOS VEO IGUAL)
+
+//lISTAS
+let litem = list.item(3);
+let litem1 = list.item[3];
+list.forEach(e => console.log(e));
+
+let entries = list.entries(); //devuelve un array iterator con un next(). con done falso, hasta que llega al final que es true y undefinded.
+let keys = list.keys();
+let values = list.values();
+// [...list].filter(); //desestructurandolo ya podemos hacer uso de todos los metodos.
+
+//ELEMENTOS
+let ele = document.createElement('p');
+ele.innerHTML = "<ul><li>Hola mundo</li></ul>";
+document.body.append(ele);
+ele.style = 'background-color: red; font-weight: bold;';
+ele.className = 'parrafo';
+ele.id = 'mi-parrafo';
+ele.setAttribute('mipropiedad', 'valor de mi propiedad'); //settear una propiedad propia
+ele.getAttribute('mipropiedad'); //acceder
+ele.hasAttribute('mipropiedad'); //ver si existe
+
+//MANIPULACION DEL DOM
+
+let elemento = document.createElement('p');
+elemento.innerText = 'Elemento creado';
+
+//texto y nodos
+document.body.append(elemento);
+elemento.remove(); //elimina el elemento;
+document.body.prepend(elemento); //si hay dos que llaman al elemento a un sitio hace caso del ultimo (ooobvio);
+
+let div = document.createElement('div');
+div.innerText= 'Soy un texto';
+
+elemento.replaceWith(div); //cambiamos uno por otro!
+
+document.body.replaceChild(elemento, div); //con que reemplazo, que reemplazo;
+
+document.body.removeChild(elemento);
+document.body.appendChild(elemento); //solo esta el append, no hay prependChild
+
+document.body.insertBefore(div, elemento); //insetar div, antes de elemento
+document.body.insertAdjacentElement('beforebegin', div);
+document.body.insertAdjacentElement('afterbegin', div);
+document.body.insertAdjacentElement('beforeend', div);
+document.body.insertAdjacentElement('afterend', div);
+
+// document.body.insertAdjacentHTML();
+// document.body.insertAdjacentText();
+
+////EVENTOS
+let form = document.createElement('form');
+form.id = 'mi-formulario';
+let input = document.createElement('input');
+input.setAttribute('type', 'text');
+let btn = document.createElement('button');
+btn.innerText = 'Enviar';
+form.append(input);
+form.append(btn);
+document.body.append(form);
+
+form.onmouseenter = event => {
+    console.log('entra el mouse', event);
+}
+form.onmouseleave = event => {
+    console.log('sale el mouse', event);
+}
+input.onfocus = event => {
+    console.log('input on focus');
+}
+input.onblur = e => {
+        console.log('input perdio el focus');
+}
+input.onchange = e => {
+    console.log('valor cambia', e.target.value);
+}
+btn.onclick = e => {
+    e.preventDefault();
+    console.log('boton clickado');
+}
+
+btn.addEventListener('click', e=> {
+    e.preventDefault();
+    console.log(('boton clickado con listener'));
+    
+});
+
+</script>
+

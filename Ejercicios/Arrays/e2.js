@@ -9,3 +9,6 @@ console.log(square);
 //b
 let cuadrado = nums.map((e)=>e*e);
 console.log(cuadrado);
+
+
+

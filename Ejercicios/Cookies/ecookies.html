@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Cookies</title>
+</head>
+
+<body>
+    <div class="formulario">
+    </div>
+    <div id="saludo"></div>
+    <div id="area"></div>
+</body>
+<script src="cookies.js"></script>
+<script>
+    /* Syntaxes:
+    |*|  * docCookies.setItem(name, value[, end[, path[, domain[, secure]]]])
+    |*|  * docCookies.getItem(name)
+    |*|  * docCookies.removeItem(name[, path], domain)
+    |*|  * docCookies.hasItem(name)
+    |*|  * docCookies.keys()
+    */
+    const saludo = document.querySelector('#saludo');
+    const formu = document.querySelector('.formulario');
+    const area = document.querySelector('#area');
+
+    const pregunta = ()=> {
+        const intervalo = setInterval (()=> {
+            if(confirm('Sigues ahí?')) {
+                docCookies.setItem('nombre', docCookies.getItem('nombre'), 15); 
+            } else {
+                docCookies.removeItem('nombre');
+                clearInterval(intervalo);
+                location.reload();//truqui del amijo para recargar la pagina si se quita la cookie, bien pensao
+            } 
+    }, 10000);
+    }
+
+
+    if (!docCookies.hasItem('nombre')) {
+        formu.innerHTML = `<form action="">
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" name="nombre" type="text">
+        </form>
+    `
+        document.querySelector('#nombre').addEventListener('blur', (e) => {
+            console.log(e.target.value);
+            docCookies.setItem('nombre', e.target.value, 15); //30 segundos (y me parece mucho)
+7        });
+    } else {
+        saludo.textContent = 'Bienvenido ' + docCookies.getItem('nombre');
+        pregunta();
+        area.innerHTML= `
+            <label for="area">Leave your comments here</label>
+            <br>
+    <textarea name="area" id="textArea" cols="30" rows="10">${docCookies.getItem('area')?docCookies.getItem('area'):''}</textarea>
+        `
+       const textArea = document.querySelector('#textArea');
+        textArea.addEventListener('input', (e)=>{
+            docCookies.setItem('area', e.target.value);
+        })
+    }
+
+
+
+</script>
+
+</html>
