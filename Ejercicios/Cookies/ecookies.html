@@ -15,13 +15,6 @@
 </body>
 <script src="cookies.js"></script>
 <script>
-    /* Syntaxes:
-    |*|  * docCookies.setItem(name, value[, end[, path[, domain[, secure]]]])
-    |*|  * docCookies.getItem(name)
-    |*|  * docCookies.removeItem(name[, path], domain)
-    |*|  * docCookies.hasItem(name)
-    |*|  * docCookies.keys()
-    */
     const saludo = document.querySelector('#saludo');
     const formu = document.querySelector('.formulario');
     const area = document.querySelector('#area');
@@ -33,11 +26,10 @@
             } else {
                 docCookies.removeItem('nombre');
                 clearInterval(intervalo);
-                location.reload();//truqui del amijo para recargar la pagina si se quita la cookie, bien pensao
+                location.reload();//truqui del amijo gpt para recargar la pagina si se quita la cookie, bien pensao
             } 
-    }, 10000);
+    }, 10000); //pregunto cada 10, recargo para 15
     }
-
 
     if (!docCookies.hasItem('nombre')) {
         formu.innerHTML = `<form action="">
@@ -47,7 +39,7 @@
     `
         document.querySelector('#nombre').addEventListener('blur', (e) => {
             console.log(e.target.value);
-            docCookies.setItem('nombre', e.target.value, 15); //30 segundos (y me parece mucho)
+            docCookies.setItem('nombre', e.target.value, 15); //15 segundos (y me parece mucho)
 7        });
     } else {
         saludo.textContent = 'Bienvenido ' + docCookies.getItem('nombre');
@@ -62,9 +54,5 @@
             docCookies.setItem('area', e.target.value);
         })
     }
-
-
-
 </script>
-
 </html>
