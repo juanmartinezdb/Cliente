@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and drops</title>
+</head>
+
+<body>
+    <style>
+        .drop {
+            float: left;
+            background-color: teal;
+            width: 150px;
+            height: 50px;
+            text-align: center;
+            padding-top: 30px;
+            margin-right: 30px;
+        }
+    </style>
+</body>
+<script>
+    let id;
+    const createDragable = () => {
+        let span = document.createElement('span');
+        span.id = 'hola-mundo';
+        span.innerText = 'Arrastrable';
+        span.draggable = true;
+        span.ondragstart = e => {
+            id = e.target.id;
+        }
+
+        return span;
+    }
+    const createDropArea = () => {
+
+        let dropArea = document.createElement('div');
+        dropArea.className = 'drop';
+
+
+        dropArea.ondragenter = e => {
+            e.target.style.background = 'yellow';
+        }
+        dropArea.ondragleave = e => {
+            e.target.style.background = '';
+        }
+        dropArea.ondragover = e => {
+            e.preventDefault();
+        }
+        dropArea.ondrop = e => {
+            e.target.appendChild(document.getElementById(id));
+        }
+        return dropArea;
+
+    }
+    let dropArea1 = createDropArea();
+    let dropArea2 = createDropArea();
+    let draggable = createDragable();
+    document.body.append(draggable);
+    document.body.append(dropArea1);
+    document.body.append(dropArea2);
+</script>
+
+</html>

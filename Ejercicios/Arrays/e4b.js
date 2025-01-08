@@ -13,6 +13,7 @@
     creaPeople('Jorge',15),
     creaPeople('Gregorio',17),
     creaPeople('Hans',21),
+    creaPeople(),
     ]
     people.forEach(persona => {
         if (persona.age>=18){

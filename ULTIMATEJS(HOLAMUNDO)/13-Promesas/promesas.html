@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promesas</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /*
+    las promesas pueden ser "pending" pendiente
+    "rejected" rechazada, o fulfilled "compleatada"
+    se usan para consultas a bases de datospeticiones a servidores
+    o WEBWORKERS
+    */
+   let promesa = new Promise((resolve, reject) => {
+        // setTimeout(() => resolve(42), 10000);
+        setTimeout(() => reject('Error de carga'), 1000);
+   });
+   console.log(promesa);
+
+   promesa.then(
+    valor => console.log(valor), //si surge el resolve seria "42" en este caso.
+    e=> console.log('error', e),
+   );//primer arg, si fulfilled, segundo si reject
+   
+
+   //encadenar promesas y catch/finally //static
+   let promesa1 = new Promise((res, rej) => {
+            res(5);
+   });
+   let promesa2 = new Promise((res, rej) => {
+            res(15);
+            // rej('error');
+   });
+
+   promesa1.then(valor => {
+    console.log(valor);
+    if (valor>10){
+        return promesa2;//podemos retornar otra promesa que tenemos creada
+    }
+        // return Promise.reject('valor menos que 10'); //mandamos un rej
+        return Promise.resolve(555);//mandamos un res
+   }).then(valor2=> {
+        console.log('segunda promesa',valor2);//15
+        return valor2;
+   }).catch(e => console.log(e)) //solo se ejecuta si hay un rej. 
+   //salta aqui siempre saltando todos los then, si hay un rej al principio.
+.finally(()=> console.log('siempre se va a cargar'));
+//finally siempre se carga sean res, o rej lo que llegue.
+//caso de uso por ejemplo, para quitar un icono de cargando. al final de estar cargando una promesa
+
+//paralelo, all, race, any, allSettled
+ const p1 = Promise.reject(3);
+ const p2 = 42;
+ const p3 = new Promise((resolve, reject)=> {
+    setInterval(resolve, 1000, 'foo');
+ });
+
+ //espera a que se resuelvan todas y envia los valores
+ Promise.all([p1, p2, p3]) //se le pasa un array
+ .then( valores => console.log('all', valores))
+ .catch( e => console.log('error en all', e) )
+
+ //lo primero que resuelve/rechace se envia
+ Promise.race([p1,p2,p3]) 
+ .then( valor => console.log('race', valor))
+ .catch( e => console.log('error en race', e) );
+
+ //devuelve la primera resuelta
+ Promise.any([p1,p2,p3]) 
+ .then( valor => console.log('any',{valor}))
+ .catch( e => console.log('error en any', {e}) );
+
+//allSettled
+Promise.allSettled([p1,p2,p3]) 
+ .then( valores => console.log('allSettled',{valores}))
+ .catch( e => console.log('error en allSettled', {e}) ); //no entra al catch,
+    // porque aceptada o rejected las manda a values
+
+
+//Argumentos
+//podemos transformar una promesa en una arrow function 
+//procesamiento en serie o->o->o->
+let promesita1 = (user) => new Promise((res, rej) => { 
+    console.log(user);
+    res(user+' 333 ');
+});
+let promesita2 = (user) => new Promise ((res, rej) => {
+    res (user + 'hola mundo');
+})
+promesita1('Chanchito felizo')
+.then(user => promesita2 (user))
+.then(dato => console.log(dato));
+
+
+//Async wait
+let promesa3 = param1 => new Promise ((res, rej)=> {
+    const b = 'Hola mundo';
+    res(b);
+});
+let promesa4 = param2 => new Promise((res, rej) =>{
+    res(param2 + ',hola mundo');
+} );
+let promesa5 = (param1,param2) => new Promise((res, rej) => {
+    res('chanchitoo felizz');
+})
+
+async function patata() {
+    try {     
+        const a = await Promise.resolve('primer valor');
+        const b = await promesa3(a);
+        const c = await promesa4(b);
+        console.log(
+            promesa5(a, b)
+        );
+    } catch (e) {
+        console.log({e});
+        
+    }
+}
+patata();
+
+//fetch
+//fetch nunca va a fallar, tendremos que hacer una logica para capturar los errores al catch
+const url = 'https://jsonplaceholder.typicode.com/todos/1';
+fetch(url)
+.then(response => {
+    if(response.ok){ //devuelve falso siempmre que el codigo no este entre 200-299
+        
+        return response.json();
+    }
+    return Promise.reject(response.status);
+    // return respone.text(); //nos lo devuelve como texto, no lo pasa a json
+})
+.then(data => console.log(data))
+.catch(message => console.log({message}));
+</script>
+</html>

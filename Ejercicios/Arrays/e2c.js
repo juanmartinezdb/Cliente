@@ -7,7 +7,7 @@ let iguales = (ar1, ar2)=>{
     if (ar1.length != ar2.length){
         return false;
     }
-    return ar1.every((a,b)=> a==ar2[b]); //eñ primer elemento del every es el elemento, pero el segundo es un INDICE! 
+    return ar1.every((elemento, indice)=> elemento==ar2[indice]); //eñ primer elemento del every es el elemento, pero el segundo es un INDICE! 
 }
 
 console.log(iguales(num1,num2));
