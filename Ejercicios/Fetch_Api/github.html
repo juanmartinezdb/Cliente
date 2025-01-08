@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github</title>
+    <link rel="shortcut icon" href="https://via.placeholder.com/1" type="image/x-icon">
+
+</head>
+
+<body>
+    <div class="formulario">
+        <input id="user" type="text">
+        <button class="enviar">Enviar</button>
+    </div>
+    <div class="error"></div>
+    <div class="respuesta"></div>
+</body>
+<script>
+    //https://api.github.com/users/user
+    const formu = document.querySelector('.formulario');
+    const input = document.querySelector('#user');
+    const error = document.querySelector('.error');
+    const respuesta = document.querySelector('.respuesta')
+
+    document.querySelector('.enviar').addEventListener('click', () => {
+        const url = `https://api.github.com/users/${input.value}`
+        fetch(url)
+            .then(res => {
+                if (res.ok) {
+                    console.log('existe');
+                    return res.json();
+                }
+            }).then(data => {
+                console.log(data);
+                //fecha
+                const creacion = document.createElement('p');
+                creacion.textContent = 'Fecha de creación: ' + data.created_at;
+                respuesta.appendChild(creacion);
+                
+                //seguidores
+                const seguidores = document.createElement('div');
+                seguidores.textContent = 'seguidores: ' + data.followers;
+                respuesta.appendChild(seguidores);
+
+                //datos de seguidores
+                const urlFollow = data.followers_url;
+                console.log(data.followers_url);
+
+                fetch(urlFollow)
+                    .then(res => {
+                        if (res.ok) {
+                            return res.json()
+                        }
+                    }).then(d => {
+                        console.log(d);
+                        for (item of d) {
+                            const seguidor = document.createElement('p');
+                            seguidor.textContent = item.login;
+                            fetch(`https://api.github.com/users/${item.login}`)
+                                .then(res => {
+                                    return res.json()
+                                }).then(dat => {
+                                    seguidor.textContent +=' ' + dat.created_at;
+                                    seguidores.append(seguidor);
+                                })
+                        }
+                    });
+
+                // //cuentas que sigue;
+                // const seguidos = document.createElement('div');
+                // seguidos.textContent = 'seguidos: ' + data.following;
+                // respuesta.appendChild(seguidos);
+
+                // //datos de seguidores
+                // const urlFollowing = `https://api.github.com/users/${data.login}/following`;
+                // console.log(data.following_url);
+                // fetch(urlFollowing)
+                //     .then(res => {
+                //         if (res.ok) {
+                //             return res.json()
+                //         }
+                //     }).then(d => {
+                //         console.log(d);
+                //         for (item of d) {
+                //             const seguido = document.createElement('p');
+                //             seguido.textContent = item.login;
+                //             fetch(`https://api.github.com/users/${item.login}`)
+                //                 .then(res => {
+                //                     return res.json()
+                //                 }).then(dat => {
+                //                     seguido.textContent +=' ' + dat.created_at;
+                //                     seguidos.append(seguidor);
+                //                 })
+                //         }
+                //     });
+            })
+            .catch(e => {
+                console.log(e);
+
+            })
+    })
+
+</script>
+
+</html>

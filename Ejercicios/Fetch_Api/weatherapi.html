@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="https://via.placeholder.com/1" type="image/x-icon">
+</head>
+<body>
+    <div class="formulario">
+        <input id="ciudad" type="text">
+        <button class="enviar">Enviar</button>
+    </div>
+    <div class="error"></div>
+    <div class="respuesta"></div>
+</body>
+<script>
+    const respuesta = document.querySelector('.respuesta');
+    const error = document.querySelector('.error');
+    const url = '';
+document.querySelector('.enviar').addEventListener('click', ()=> {
+    const ciudad = document.querySelector('#ciudad').value;
+const url = `https://api.weatherapi.com/v1/current.json?key=113d4c410a1d49e180c90247250801&q=${ciudad}&aqi=no`;
+        fetch(url)
+        .then((res) =>  {
+            if(res.ok) {
+                return res.json();
+            } else {   
+                const status = res.status;           
+                return res.json().then(r=> {
+                    console.log(r);
+                    throw new Error('Status:'+ status+ ' Error: '+r.error.message);
+                })
+            }
+                throw new Error(res.json());
+        }).then(data => {
+            console.log('entra');
+            
+            respuesta.innerHTML = `
+                    <img src=${data.current.condition.icon} alt="response.current.condition.text">
+        <p>${data.current.condition.text}</p>
+        <p>${data.location.name}</p>
+            `
+            error.innerHTML= '';
+        }).catch (mensaje => {
+            error.textContent = mensaje;
+            respuesta.textContent= '';
+        })
+})
+
+
+</script>
+</html>
