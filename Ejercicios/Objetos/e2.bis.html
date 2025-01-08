@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form class="formulario" action="">
+
+    </form>
+
+</body>
+<script>
+    const person = {
+        "nombre": "Noon",
+        "edad": 6,
+        "aficiones": ["Deporte", "Lectura", "Viajar"],
+        "emancipado": true,
+    }
+
+const createInput = (tipo,v,div,label) => {
+    let inputNombre = document.createElement("input");
+                    inputNombre.type = "text";
+                    inputNombre.value = v;
+                    label.for=v;
+                    div.appendChild(inputNombre);    
+}
+
+    const crearFormulario = (objeto, form) => {
+
+        for ([k, v] of Object.entries(objeto)) {
+
+            const div = document.createElement("div");
+            const label = document.createElement("label");
+            label.textContent = k + ":";
+            div.appendChild(label);
+            form.appendChild(div);
+
+            switch (typeof v) {
+                case "string":
+                    createInput("text",v,div,label);
+                    break;
+                case "number":
+                createInput("number",v,div,label);
+                    break;
+                case "boolean":
+                createInput("boolean",v,div,label);
+                    break;
+                case "object":
+                const checkboxes = document.createElement("div");
+                for (item of v) {
+                    const checkbox = document.createElement("div");
+                    const input = document.createElement("input");
+                    checkbox.appendChild(input);
+                    input.type="checkbox";
+                    input.id=item;
+                    input.value=item;
+                    input.name=item;
+                    const labelCheck = document.createElement("label");
+                    labelCheck.textContent=item;
+                    labelCheck.for=item;
+                    checkbox.appendChild(labelCheck);
+                    checkboxes.appendChild(checkbox);
+                }
+                div.appendChild(checkboxes);
+                    break;
+
+            }
+        }
+                            //boton
+                            const boton = document.createElement("button");
+        boton.type = "submit";
+        boton.textContent="Enviar";
+        form.appendChild(boton);
+    }
+
+    crearFormulario(person, document.querySelector(".formulario"));
+
+
+
+
+</script>
+
+</html>
