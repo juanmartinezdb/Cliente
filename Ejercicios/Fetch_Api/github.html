@@ -26,6 +26,8 @@
 
     document.querySelector('.enviar').addEventListener('click', () => {
         const url = `https://api.github.com/users/${input.value}`
+        console.log(input.value);
+        
         fetch(url)
             .then(res => {
                 if (res.ok) {
@@ -67,38 +69,38 @@
                                 })
                         }
                     });
+                    
+                //cuentas que sigue;
+                const seguidos = document.createElement('div');
+                seguidos.textContent = 'seguidos: ' + data.following;
+                respuesta.appendChild(seguidos);
 
-                // //cuentas que sigue;
-                // const seguidos = document.createElement('div');
-                // seguidos.textContent = 'seguidos: ' + data.following;
-                // respuesta.appendChild(seguidos);
-
-                // //datos de seguidores
-                // const urlFollowing = `https://api.github.com/users/${data.login}/following`;
-                // console.log(data.following_url);
-                // fetch(urlFollowing)
-                //     .then(res => {
-                //         if (res.ok) {
-                //             return res.json()
-                //         }
-                //     }).then(d => {
-                //         console.log(d);
-                //         for (item of d) {
-                //             const seguido = document.createElement('p');
-                //             seguido.textContent = item.login;
-                //             fetch(`https://api.github.com/users/${item.login}`)
-                //                 .then(res => {
-                //                     return res.json()
-                //                 }).then(dat => {
-                //                     seguido.textContent +=' ' + dat.created_at;
-                //                     seguidos.append(seguidor);
-                //                 })
-                //         }
-                //     });
+                //datos de seguidores
+                const urlFollowing = `https://api.github.com/users/${data.login}/following`;
+                console.log(data.following_url);
+                fetch(urlFollowing)
+                    .then(res => {
+                        if (res.ok) {
+                            return res.json()
+                        }
+                    }).then(d => {
+                        console.log(d);
+                        for (item of d) {
+                            const seguido = document.createElement('p');
+                            seguido.textContent = item.login;
+                            fetch(`https://api.github.com/users/${item.login}`)
+                                .then(res => {
+                                    return res.json()
+                                }).then(dat => {
+                                    seguido.textContent +=' ' + dat.created_at;
+                                    seguidos.append(seguido);
+                                })
+                        }
+                    });
             })
             .catch(e => {
                 console.log(e);
-
+                error.textContent=e;
             })
     })
 
