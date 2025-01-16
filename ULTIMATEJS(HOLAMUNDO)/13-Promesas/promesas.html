@@ -137,5 +137,51 @@ fetch(url)
 })
 .then(data => console.log(data))
 .catch(message => console.log({message}));
+
+/*Las Apis van a manejar las siguientes acciones
+             /Todos
+--Listar     -Get  1 /todos/1 n /todos
+--Crear     -Post
+--Actualizar Put/Patch 
+--Eliminar  -Delete  /todos/1
+*/
+
+//Opciones fetch
+const url2 = 'https://jsonplaceholder.typicode.com/todos';
+fetch(url2, {
+    method: 'POST', //PUT, PATCH, DELETE, GET (get es el por defecto)
+    body: JSON.stringify({title: 'Hola Mundo'}), //que recursos contiene, hay que mandarlo en JSON, por eso el JSON.stringify
+    headers : {
+        'Content-Type': 'application/json',
+        Authorization: 'api key',
+    }, //nos sirve para indicar al server que estamos mandando un tipo de archivo json, y nuestras credenciales si hace falta
+    cache: 'no-cache', //default, reload, force-cache, only-if-cached
+})
+.then(response => {
+    if(response.ok){ 9
+        return response.json();
+    }
+    return Promise.reject(response.status);
+})
+.then(data => console.log(data))
+.catch(message => console.log({message}));
+
+//Abortar fetch
+
+let controller = new AbortController();
+let { signal } = controller;
+async function  getTodos() {
+    const url = 'https://jsonplaceholder.typicode.com/todos';
+    try {
+        const response = await fetch(url, {signal});
+        const data = await response.json();
+        console.log(data);
+    } catch (e) {
+        console.log('error: ',e);
+        
+    }
+}
+getTodos();
+controller.abort();//esto se puede meter en un addListener por ejemplo para que lo corte el usuario.
 </script>
 </html>
