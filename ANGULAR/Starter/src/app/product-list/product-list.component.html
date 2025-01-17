@@ -2,8 +2,26 @@
 
 <div *ngFor="let product of products">
   <h3>
-    {{ product.name }}
+    <a [title]="product.name +' detalles'"
+    [routerLink]="['/products', product.id]">
+      {{ product.name }}
+    </a>
   </h3>
+  <p *ngIf="product.description">
+    Descripción: {{product.description}}
+  </p>
+    <p *ngIf="product.price">
+    price: {{product.price}}
+  </p>
+
+  <button type="button" (click)="share()">
+    Compartir
+  </button>
+  <app-product-alerts
+  [product]="product"
+  (notificacion)="onNotify()"> 
+</app-product-alerts>
+<!-- La entrada de un output de una clase hija, entra con un () -->
 </div>
 <!-- 
 Copyright Google LLC. All Rights Reserved.
