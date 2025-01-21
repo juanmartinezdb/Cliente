@@ -62,8 +62,6 @@ const pintaGeneros = () => {
     })
 }
 
-
-
 const pintaCountries = () => {
     countries.forEach(con => {
         const option = document.createElement("option");
@@ -72,8 +70,6 @@ const pintaCountries = () => {
         selectCountries.appendChild(option);
     })
 }
-
-
 
 const pintaYears = (select, year=2000) => {
     select.innerHTML="";
