@@ -3,7 +3,7 @@
       "nombre": "Ensalada César",
       "ingredientes": "lechuga, pollo, queso parmesano, crutones, salsa césar",
       "precio": 12.5,
-      "disponible": true,
+      "disponible": false,
       "img": "./assets/img/cesar.jpg"
     },
     {
