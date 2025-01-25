@@ -122,7 +122,7 @@ const mostrarCarrito = () => {
         `;
         div.querySelector('.eliminar').addEventListener('click', (e) => {
             const index = e.target.dataset.index;
-            carrito.splice(index, 2);
+            carrito.splice(index, 1); //elimino uno a partir de esa posicion del index
             mostrarCarrito();
         });
         carritoDiv.appendChild(div);
