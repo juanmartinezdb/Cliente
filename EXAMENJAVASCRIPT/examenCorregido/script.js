@@ -154,11 +154,11 @@ document.querySelector(".buscar").addEventListener("click", () => {
     });
 
     //FILTRO AÑOS
-if (from.value ){
-    arrayLimitado.filter(p => from.value <= p.Year); 
+if (from.value ){  
+    arrayLimitado = arrayLimitado.filter(p => from.value <= p.Year); 
 }
 if (to.value){
-    arrayLimitado.filter(p => p.Year <= to.value); 
+    arrayLimitado = arrayLimitado.filter(p => p.Year <= to.value); 
 }
 
     //MOSTRAR RESULTADO
