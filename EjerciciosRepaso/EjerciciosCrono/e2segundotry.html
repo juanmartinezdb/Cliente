@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!-- Tres colores: primary (iniciada no acabada)
+                    warning (acabada en descanso)
+                    success (tarea  descanso completados) -->
+
+    <div class="container">
+        <!-- timer global inicia en 0:00 incrementa segundo a segundo -->
+        <div class="timerGlobal"></div> 
+        <div class="row tareas">
+            <div class="col-3">
+                <div class="Jon">Jon</div>
+                <div class="Jondata">
+                    <p>Task_1</p>
+                    <!-- tiempo de realizacion de la tarea
+                     cuenta atrás sec a sec cuando llegue a 0 sera "DONE" -->
+                    <p class="timeT1a"></p>
+                    <!-- tiemp de descanso una vez finalizada
+                     cuando llegue a Ta a 0 empieza. Cuando llegue a 0
+                     este tambien podnrá "Time's Up" -->
+                    <p class="timeT1b"></p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="Jon">Doe</div>
+                <div class="Doedata">
+                    <p>Task_1</p>
+                    <p class="timeT2a"></p>
+                    <p class="timeT2b"></p>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="Jon">Foo</div>
+                <div class="Foodata">
+                    <p>Task_1</p>
+                    <p class="timeT3a"></p>
+                    <p class="timeT3b"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- inicia el temporizador gobal en 0 formato mm:ss
+             o reanuda si se ha pulsado pause -->
+            <button class="start col-3">Start</button>
+            <!-- restaura y detiene todos los temporizadores -->
+            <button class="stop col-3">Stop</button>
+            <!-- pausa todos los temporizadores -->
+            <button class="pause col-3">Pause</button>
+        </div>
+    </div>
+</body>
+<script>
+ const tasksAll = {
+    "tasksList": [
+        {
+            "assignedTo": "Jon",
+            "task": "Task_1",
+            "duration": 20,
+            "break": 5
+        },
+        {
+            "assignedTo": "Doe",
+            "task": "Task_2",
+            "duration": 15,
+            "break": 3
+        },
+        {
+            "assignedTo": "Foo",
+            "task": "Task_3",
+            "duration": 60,
+            "break": 15
+        }
+    ]
+};
+const tasks = tasksAll.tasksList;
+
+
+const construirTabla = () => {
+
+    for (task of tasks){
+        const div = document.createElement('div');
+        div.classList.add('col-3');
+
+        div.innerHTML= `
+                    <div class="${task.assignedTo}">${task.assignedTo}</div>
+                    <div">
+                        <p>${task.task}</p>
+                        <p class="${task.task}Dura"></p>
+                        <p class="${task.task}Break"></p>
+                    </div>
+        `;
+        const dura = div.querySelector(".",task.task,"Dura");
+        const bre = div.querySelector(".",task.task,"Break");
+        const DuraInter = setTimeout(() => {
+            
+        }, task.duration*1000);
+    }
+}
+    
+    </script>
+</html>
