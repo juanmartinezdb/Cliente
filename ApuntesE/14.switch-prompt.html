@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="iniciar()">
+
+    <script>
+        function iniciar() {
+            input1 = Number(prompt("Inserte un valor")); //prompt da el system.out.print y al tiempo el scanner
+            input2 = Number(prompt("Inserte el segundo valor"));
+
+            document.getElementById('entrada1').innerHTML = "Primer valor ->" + input1;
+            document.getElementById('entrada2').innerHTML = "Segundo valir ->" + input2;
+        }
+        function operacion() {
+            var x = Number(prompt("Introduzca una opción"));
+            var w = document.getElementById('resultado');
+            switch (x) {
+                case 1:
+                    w.innerHTML = input1 + input2;
+                    break;
+                case 2:
+                    w.innerHTML = input1 - input2;
+                    break;
+                case 3:
+                    w.innerHTML = input1 * input2;
+                    break;
+                case 4:
+                    w.innerHTML = input1 / input2;
+                    break;
+                case 5:
+                    w.innerHTML = input1 % input2;
+                    break;
+                case 6: 
+                    document.body.innerHTML = "Adios!";
+                    break;
+            }
+        }
+    </script>
+
+        <h1>Calculadora básica</h1>
+        <h2>Funcionamiento de la Calculadora</h2>
+        <ol>
+            <li>Pulsa 1 para sumar</li>
+            <li>Pulsa 2 para restrar</li>
+            <li>Pulsa 3 para multiplicar</li>
+            <li>Pulsa 4 para dividir</li>
+            <li>Pulsa 5 para obtener el módulo</li>
+            <li>Pulsa 6 para salir</li>
+        </ol>
+        <div id="entrada1"></div>
+        
+        <div id="entrada2"></div>
+        <input type="button" value="Operacion" onclick="operacion()" />
+        <div id="resultado"></div>
+
+</body>
+
+</html>
