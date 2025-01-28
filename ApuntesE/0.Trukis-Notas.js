@@ -1,3 +1,4 @@
+
 // se pueden usar collecciones HTML, y demas movidas con el spread operator y pasarlas a un array, y asi usar 
 //los metodos de array. 
 let div = document.createElement("div");

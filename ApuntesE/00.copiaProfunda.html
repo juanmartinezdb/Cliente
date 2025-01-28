@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+    //COPIA PROFUNDA, ES DECIR UNA COPIA TOTAL DE UN ARRAYS
+const products = [{ id: 1, stock: 10 }, { id: 2, stock: 5 }];
+let copiaMentira = [...products];//solo hace referencia
+let copia =products.map((p) => ({ ...p })) //hace una copia profunda.
+copiaMentira[0].stock = 20;
+
+console.log('Original (modificado por la referencia de la copiaMentira): ',products);
+console.log('CopiaProfunda: ',copia);
+console.log('CopiaMentira: ',copiaMentira);
+</script>
+
+

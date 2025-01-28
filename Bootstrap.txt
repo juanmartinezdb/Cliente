@@ -1,0 +1,8 @@
+-Revisar el examen de los aloes para que el carrito vaya bien.
+-Crear un md para Obsidian
+
+-Organizar los Ejercicios bien del Repositorio
+-copiar todo al usb
+
+Codigo arrancar boostrap.
+npm run docs-serve
