@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla jodida 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+       <!-- Tabla -->
+       <h2>Tabla</h2>
+       <table class="table table-striped">
+           <thead>
+               <tr>
+                   <th>Name</th>
+                   <th>Surname</th>
+                   <th>Age</th>
+                   <th>Emancipated</th>
+                   <th>Delete</th>
+               </tr>
+           </thead>
+           <tbody class="filas">
+               <tr>
+                   <td>Jon</td>
+                   <td>Doe</td>
+                   <td>12</td>
+                   <td>+</td>
+                   <td><button class="btn btn-sm btn-warning">Del</button></td>
+               </tr>
+           </tbody>
+       </table>
+       <form action="" class="d-flex border p-2 ">
+        <div class="">
+            <label for="name"> Name:</label>
+            <input type="text" class="name">
+        </div>
+        <div class="">
+            <label for="surname"> Surname:</label>
+            <input type="text" class="surname">
+        </div>
+        <div class="">
+            <label for="ag"> Age:</label>
+            <input type="text" class="age">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="checkbox1">
+            <label class="form-check-label" for="checkbox1">Emancipated</label>
+        </div>
+        <button class="btn btn-success confirmar">Ok</button>
+       </form>
+       <table class="table table-striped datos">
+        <tr>
+            <td class="rowNum">Row Number:</td>
+            <td class="rowTag">Tag</td>
+            <td class="cellTag">3</td>
+        </tr>
+        <tr>
+            <td class="idCell">4</td>
+            <td class="idRow">5</td>
+            <td class="idCol">6</td>
+        </tr>
+        <tr>
+            <td class="cellContent">7</td>
+            <td class="rowContent">8</td>
+            <td class="colContent">9</td>
+        </tr>
+       </table>
+
+</body>
+<script>
+
+    let entradas = [
+        {name: 'Jon', surname: 'Doe', age: '12', emancipated: true},
+        {name: 'Jane', surname: 'Does', age: '21', emancipated: false},
+        {name: 'Juan', surname: 'Nadie', age: '22', emancipated: true},
+        {name: 'Pepa', surname: 'Perez', age: '32', emancipated: true},
+    ];
+    window.onload = ()=> {
+        pintaTabla(entradas);
+    }
+const tabla = document.querySelector('.filas');
+const form = document.querySelector('form');
+const inputName = document.querySelector('.name');
+const inputSurname = document.querySelector('.surname');
+const inputAge = document.querySelector('.age');
+const checkEmancipated = document.querySelector('#checkbox1');
+const btnConfirmar = document.querySelector('.confirmar');
+let filaEditando = null;
+let contadorEdiciones = {};
+
+
+    const pintaTabla = (ent)=> {
+        tabla.innerHTML='';
+        ent.forEach((e,i) => {
+
+            const tr = document.createElement('tr');
+            tabla.appendChild(tr);
+            tr.id='tr-'+i;
+        tr.innerHTML=`
+                   <td id=td1-${i}>${e.name}</td>
+                   <td id=td1-${i}>${e.surname}</td>
+                   <td id=td1-${i}>${e.age}</td>
+                   <td id=td1-${i}>${e.emancipated?'+':'-'}</td>
+                   <td id=td1-${i}><button class="btn btn-sm btn-warning del">Del</button></td>
+        `
+            tr.querySelector('.del').addEventListener('click', (event)=> {
+                ent.splice(i,1);
+                pintaTabla(ent);
+            })
+        });
+    };tabla.addEventListener('mouseover', (e) => {
+    if (e.target.tagName === 'TD') {
+        const celda = e.target;
+        const fila = celda.parentNode;
+
+        // Obtener el índice de la columna
+        const colIndice = Array.from(fila.children).indexOf(celda);
+
+        // Marcar la fila
+        fila.classList.add('table-secondary');
+
+        // Marcar la columna (solo si la celda existe)
+        Array.from(tabla.querySelectorAll('tr')).forEach((tr) => {
+            if (tr.children[colIndice]) { // Asegurar que la celda existe
+                tr.children[colIndice].classList.add('table-secondary');
+            }
+        });
+
+        pintaDatos(celda,fila,colIndice, tabla);
+    }
+});
+
+tabla.addEventListener('mouseout', (e) => {
+    if (e.target.tagName === 'TD') {
+        const celda = e.target;
+        const fila = celda.parentNode;
+
+        // Obtener el índice de la columna
+        const colIndice = Array.from(fila.children).indexOf(celda);
+
+        // Desmarcar la fila
+        fila.classList.remove('table-secondary');
+
+        // Desmarcar la columna (solo si la celda existe)
+        Array.from(tabla.querySelectorAll('tr')).forEach((tr) => {
+            if (tr.children[colIndice]) { // Asegurar que la celda existe
+                tr.children[colIndice].classList.remove('table-secondary');
+            }
+        });
+    }
+});
+
+const pintaDatos = (celda, fila, colIndice, tabla) => {
+    const tablaDatos = document.querySelector('.datos');
+
+    // Obtener todas las filas de la tabla
+    const arrFilas = Array.from(tabla.querySelectorAll('tr'));
+
+    // Obtener las celdas de la fila y la columna seleccionada
+    const celdasFila = Array.from(fila.children).map(td => td.id || "(Sin ID)");
+    const celdasColumna = arrFilas
+        .map(tr => tr.children[colIndice]?.id || "(Sin ID)")
+        .filter(id => id !== "(Sin ID)");
+
+    // Rellenar la tabla con los datos de la celda, fila y columna
+    tablaDatos.innerHTML = `
+        <tr>
+            <td class="idCell">Cell ID: ${celda.id || "(Sin ID)"}</td>
+            <td class="cellTag">Tag Celda: ${celda.tagName}</td>
+            <td class="cellContent">Celda: ${celda.textContent.trim()}</td>
+            <td class="idCol">${celdasColumna.join(', ')}</td>
+        </tr>
+        <tr>
+            <td class="rowNum">Row Number: ${arrFilas.indexOf(fila) + 1}</td>
+            <td class="rowTag">Tag Fila: ${fila.tagName}</td>
+            <td class="rowContent">Fila: ${fila.textContent.trim()}</td>
+            <td class="idRow">${celdasFila.join(', ')}</td>
+        </tr>
+        <tr>
+            <td class="cellContent">Col Number: ${colIndice + 1}</td>
+            <td class="rowContent"></td>
+            <td class="colContent">Columna: ${celdasColumna.map(id => document.getElementById(id)?.textContent.trim() || "").join(', ')}</td>
+            <td></td>
+        </tr>
+    `;
+};
+tabla.addEventListener('click', (e) => {
+    if (e.target.tagName === 'TD') {
+        const fila = e.target.parentNode;
+        const celdas = fila.children;
+
+        // Guardar la fila que se está editando
+        filaEditando = fila;
+
+        // Rellenar los inputs con los valores actuales
+        inputName.value = celdas[0].textContent;
+        inputSurname.value = celdas[1].textContent;
+        inputAge.value = celdas[2].textContent;
+        checkEmancipated.checked = celdas[3].textContent === '+';
+
+        // Registrar cuántas veces se ha editado esta fila
+        if (!contadorEdiciones[fila.id]) {
+            contadorEdiciones[fila.id] = 1;
+        } else {
+            contadorEdiciones[fila.id]++;
+        }
+    }
+});
+
+// Confirmar edición y actualizar la tabla
+btnConfirmar.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (filaEditando) {
+        const celdas = filaEditando.children;
+
+        // Si la misma fila ha sido editada más de 3 veces, pedimos confirmación extra
+        if (contadorEdiciones[filaEditando.id] > 3) {
+            const confirmar = confirm("Has editado esta fila más de 3 veces. ¿Quieres seguir editando?");
+            if (!confirmar) return;
+        }
+
+        // Actualizar los valores en la tabla
+        celdas[0].textContent = inputName.value;
+        celdas[1].textContent = inputSurname.value;
+        celdas[2].textContent = inputAge.value;
+        celdas[3].textContent = checkEmancipated.checked ? '+' : '-';
+
+        // Resetear la fila en edición
+        filaEditando = null;
+    }
+});
+
+</script>
+</html>

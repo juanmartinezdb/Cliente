@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Completo con Validación en Tiempo Real</title>
+  
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  >
+</head>
+<body class="bg-light p-3">
+
+  <div class="container">
+    <h1 class="mb-4">Validación en Tiempo Real con JavaScript + Bootstrap</h1>
+    
+    <form id="formulario" class="row g-3">
+      
+      <!-- NOMBRE -->
+      <div class="col-md-6">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="nombre" 
+          name="nombre" 
+          placeholder="Tu nombre" 
+          required 
+          data-bs-toggle="tooltip" 
+          title="Solo letras, mínimo 2 caracteres."
+        >
+        <div class="invalid-feedback">Debe contener solo letras (mín. 2 caracteres).</div>
+        <div class="valid-feedback">¡Perfecto, tu nombre luce bien!</div>
+      </div>
+
+<!-- EMAIL -->
+<div class="col-md-6">
+    <label for="email" class="form-label">Email</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="email" 
+      name="email" 
+      placeholder="ejemplo@correo.com" 
+      required
+      data-bs-toggle="tooltip"
+      title="Introduce un correo electrónico válido."
+    >
+    <div class="invalid-feedback">Formato de email inválido. Ejemplo: ejemplo@correo.com</div>
+    <div class="valid-feedback">¡Email válido!</div>
+  </div>
+      
+      <!-- TELÉFONO -->
+      <div class="col-md-6">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input 
+          type="tel" 
+          class="form-control" 
+          id="telefono" 
+          name="telefono" 
+          placeholder="123456789" 
+          data-bs-toggle="tooltip"
+          title="Ingresa un teléfono de 9 dígitos, sin espacios."
+          required
+        >
+        <div class="invalid-feedback">El teléfono debe ser de 9 dígitos.</div>
+        <div class="valid-feedback">¡Teléfono válido!</div>
+      </div>
+
+      <!-- CONTRASEÑA -->
+      <div class="col-md-6">
+        <label for="password" class="form-label">Contraseña</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="password"
+          name="password"
+          placeholder="Mínimo 6 caracteres"
+          required
+          data-bs-toggle="tooltip"
+          title="Mínimo 6 caracteres, al menos una letra y un número."
+        >
+        <div class="invalid-feedback">
+          Debe tener al menos 6 caracteres, con letras y números.
+        </div>
+        <div class="valid-feedback">Contraseña válida.</div>
+      </div>
+
+      <!-- CONFIRMACIÓN CONTRASEÑA -->
+      <div class="col-md-6">
+        <label for="confirmPassword" class="form-label">Repite Contraseña</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="Repite la contraseña"
+          required
+          data-bs-toggle="tooltip"
+          title="Debe coincidir con la contraseña anterior."
+        >
+        <div class="invalid-feedback">
+          Las contraseñas no coinciden.
+        </div>
+        <div class="valid-feedback">¡Coincide!</div>
+      </div>
+      
+      <!-- FECHA DE NACIMIENTO -->
+      <div class="col-md-6">
+        <label for="fecha" class="form-label">Fecha de nacimiento</label>
+        <input 
+          type="date"
+          class="form-control" 
+          id="fecha" 
+          name="fecha"
+          data-bs-toggle="tooltip"
+          title="Introduce una fecha válida."
+          required
+        >
+        <div class="invalid-feedback">
+          ¿Fecha no válida? Asegúrate de elegir una fecha razonable.
+        </div>
+        <div class="valid-feedback">Fecha válida.</div>
+      </div>
+
+      <!-- SELECT (ejemplo de país) -->
+      <div class="col-md-6">
+        <label for="pais" class="form-label">País</label>
+        <select 
+          class="form-select" 
+          id="pais" 
+          name="pais"
+          required
+          data-bs-toggle="tooltip"
+          title="Selecciona un país"
+        >
+          <option value="">--Selecciona--</option>
+          <option value="es">España</option>
+          <option value="mx">México</option>
+          <option value="ar">Argentina</option>
+          <option value="co">Colombia</option>
+        </select>
+        <div class="invalid-feedback">
+          Selecciona algún país.
+        </div>
+        <div class="valid-feedback">Perfecto, país seleccionado.</div>
+      </div>
+
+      <!-- RADIO (ejemplo de género) -->
+      <div class="col-md-12">
+        <span class="form-label d-block mb-1">Género</span>
+        <div 
+          class="form-check form-check-inline" 
+          data-bs-toggle="tooltip"
+          title="Marca uno de los géneros."
+        >
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            name="genero" 
+            id="genero1" 
+            value="Masculino"
+            required
+          >
+          <label class="form-check-label" for="genero1">Masculino</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input 
+            class="form-check-input" 
+            type="radio" 
+            name="genero" 
+            id="genero2" 
+            value="Femenino"
+          >
+          <label class="form-check-label" for="genero2">Femenino</label>
+        </div>
+        <div class="invalid-feedback d-block">
+          Elige una opción de género.
+        </div>
+        <div class="valid-feedback d-block">
+          Género seleccionado.
+        </div>
+      </div>
+
+      <!-- CHECKBOX (TÉRMINOS) -->
+      <div class="col-md-12">
+        <div class="form-check" data-bs-toggle="tooltip" title="Acepta los términos para continuar.">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            id="terminos" 
+            name="terminos" 
+            required
+          >
+          <label class="form-check-label" for="terminos">
+            Acepto los términos y condiciones
+          </label>
+          <div class="invalid-feedback">Debes aceptar los términos para continuar.</div>
+          <div class="valid-feedback">¡Términos aceptados!</div>
+        </div>
+      </div>
+
+      <!-- BOTÓN -->
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+    
+  </div>
+
+  <!-- Bootstrap JS (incluye Popper para tooltips) -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+  <!-- JS de Validación -->
+  <script>
+    // Primero: Activa tooltips
+    document.addEventListener('DOMContentLoaded', () => {
+      const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      tooltipTriggerList.forEach(el => {
+        new bootstrap.Tooltip(el);
+      });
+    });
+
+    // Seleccionamos todos los campos
+    const nombre = document.getElementById('nombre');
+    const email = document.getElementById('email');
+    const telefono = document.getElementById('telefono');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const fecha = document.getElementById('fecha');
+    const pais = document.getElementById('pais');
+    const generoRadios = document.querySelectorAll('input[name="genero"]');
+    const terminos = document.getElementById('terminos');
+
+    const form = document.getElementById('formulario');
+
+    // Expresiones regulares de ejemplo
+    const soloLetras = /^[a-zA-ZÀ-ÿ\s]{2,}$/;          // mínimo 2 letras
+    const telRegex = /^[0-9]{9}$/;                     // 9 dígitos
+    const passRegex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/; // mínimo 6 chars, con letras y números
+
+const soloLetras2 = /^[a-zA-ZÀ-ÿ\s]+$/;                // Solo letras (incluye espacios, mayúsculas y tildes)
+const telRegex2 = /^[6-9][0-9]{8}$/;                   // Teléfono español (9 dígitos exactos)
+const codigoPostalEsp = /^[0-4][0-9]{4}$|^5[0-2][0-9]{3}$/; // Código postal español (5 dígitos)
+const passRegex2 = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;  // Contraseña segura (mínimo 8 caracteres, al menos una letra y un número)
+const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?.*)?$/; // URL válida
+const decimalRegex = /^\d+(\.\d{1,2})?$/;            // Números decimales con 2 decimales como máximo
+const dniNieRegex = /^[XYZ]?\d{7,8}[A-Z]$/;          // DNI o NIE válido (España)
+const fechaRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/; // Fecha en formato DD/MM/AAAA
+
+
+
+    // Funciones de validación (directo y dramático):
+    function validarNombre() {
+      const valor = nombre.value.trim();
+      if (!soloLetras.test(valor)) {
+        nombre.classList.add('is-invalid');
+        nombre.classList.remove('is-valid');
+      } else {
+        nombre.classList.remove('is-invalid');
+        nombre.classList.add('is-valid');
+      }
+    }
+
+    function validarEmail() {
+  const valor = email.value.trim();
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Expresión regular para validar email
+  if (!emailRegex.test(valor)) {
+    email.classList.add('is-invalid');
+    email.classList.remove('is-valid');
+  } else {
+    email.classList.remove('is-invalid');
+    email.classList.add('is-valid');
+  }
+}
+
+
+function validarTelefono() {
+  const valor = telefono.value.trim();
+  const telRegex = /^[6-9][0-9]{8}$/;
+  if (!telRegex.test(valor)) {
+    telefono.classList.add('is-invalid');
+    telefono.classList.remove('is-valid');
+  } else {
+    telefono.classList.remove('is-invalid');
+    telefono.classList.add('is-valid');
+  }
+}
+
+
+    function validarPassword() {
+      const valor = password.value.trim();
+      if (!passRegex.test(valor)) {
+        password.classList.add('is-invalid');
+        password.classList.remove('is-valid');
+      } else {
+        password.classList.remove('is-invalid');
+        password.classList.add('is-valid');
+      }
+    }
+
+    function validarConfirmPassword() {
+      if (confirmPassword.value.trim() !== password.value.trim() || !passRegex.test(confirmPassword.value)) {
+        confirmPassword.classList.add('is-invalid');
+        confirmPassword.classList.remove('is-valid');
+      } else {
+        confirmPassword.classList.remove('is-invalid');
+        confirmPassword.classList.add('is-valid');
+      }
+    }
+
+    function validarFecha() {
+      // Solo comprobamos que no esté vacía, y que sea "válida" por HTML.
+      if (!fecha.value) {
+        fecha.classList.add('is-invalid');
+        fecha.classList.remove('is-valid');
+      } else {
+        fecha.classList.remove('is-invalid');
+        fecha.classList.add('is-valid');
+      }
+    }
+
+    function validarPais() {
+      if (!pais.value) {
+        pais.classList.add('is-invalid');
+        pais.classList.remove('is-valid');
+      } else {
+        pais.classList.remove('is-invalid');
+        pais.classList.add('is-valid');
+      }
+    }
+
+    function validarGenero() {
+      // Chequea si uno está seleccionado
+      let seleccionado = false;
+      generoRadios.forEach(radio => {
+        if (radio.checked) {
+          seleccionado = true;
+        }
+      });
+      if (!seleccionado) {
+        // Marca como inválido, pero para radio no podemos usar la misma clase en un input
+        // Podemos mostrar la invalid-feedback en general:
+        generoRadios[0].parentNode.parentNode
+          .querySelector('.invalid-feedback')
+          .style.display = 'block';
+        generoRadios[0].parentNode.parentNode
+          .querySelector('.valid-feedback')
+          .style.display = 'none';
+      } else {
+        generoRadios[0].parentNode.parentNode
+          .querySelector('.invalid-feedback')
+          .style.display = 'none';
+        generoRadios[0].parentNode.parentNode
+          .querySelector('.valid-feedback')
+          .style.display = 'block';
+      }
+    }
+
+    function validarTerminos() {
+      if (!terminos.checked) {
+        terminos.classList.add('is-invalid');
+        terminos.classList.remove('is-valid');
+      } else {
+        terminos.classList.remove('is-invalid');
+        terminos.classList.add('is-valid');
+      }
+    }
+
+    // Listeners en tiempo real
+    nombre.addEventListener('input', validarNombre);
+    email.addEventListener('input', validarEmail);
+    telefono.addEventListener('input', validarTelefono);
+    password.addEventListener('input', validarPassword);
+    confirmPassword.addEventListener('input', validarConfirmPassword);
+    fecha.addEventListener('input', validarFecha);
+    pais.addEventListener('change', validarPais);
+    generoRadios.forEach(radio => {
+      radio.addEventListener('change', validarGenero);
+    });
+    terminos.addEventListener('change', validarTerminos);
+
+    // Al enviar el formulario, revisamos todo.
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // Para que no recargue la página (puedes cambiarlo si deseas envío real).
+      
+      validarNombre();
+      validarEmail();
+      validarTelefono();
+      validarPassword();
+      validarConfirmPassword();
+      validarFecha();
+      validarPais();
+      validarGenero();
+      validarTerminos();
+
+      // Chequea si todos están "is-valid" 
+      // (radio es especial, ver validación diferente).
+      const invalidFields = form.querySelectorAll('.is-invalid');
+
+      if (invalidFields.length === 0) {
+        alert('¡Formulario válido, Iterion! Guardando datos...');
+        // Aquí harías, por ejemplo, un envío real, o AJAX/fetch, etc.
+      } else {
+        alert('Hay campos inválidos. Revisa y corrige, Iterion.');
+      }
+    });
+  </script>
+</body>
+</html>
