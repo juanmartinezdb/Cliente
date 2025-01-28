@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+
+        <thead id="cabeza">            
+          
+        </thead>
+        <tbody id="cuerpo">
+            
+        </tbody>
+    </table>
+</body>
+
+<script src="variables.js"></script>
+<script>
+    let csvToArrayCuerpo =(csv, separador=",") =>{
+    let filas = csv.split('\n');
+
+  //Quito la primera que es la cabecera
+    filas.shift();
+    console.log(filas);
+    
+    filas= filas.map(f =>f.split(separador));
+    console.log(filas);    
+    return filas;
+};
+
+let csvToArrayCabecera = (csv, separador=",")=> {
+    let filas = csv.split("\n");
+    let cabecera = filas[0].split(separador);
+    console.log(cabecera);
+    
+    return cabecera;
+}
+
+let filas = csvToArrayCuerpo(csv);
+let cabecera = csvToArrayCabecera(csv);
+
+let rellenarTabla = (filas, cabecera) =>{
+    const cabeza = document.querySelector("#cabeza");
+    for (let item of cabecera){
+        let fila = document.createElement("th");
+        fila.textContent=item;
+        cabeza.appendChild(fila);
+    } 
+     const cuerpo =document.querySelector("#cuerpo");
+     for (let item of filas){
+        let fila = document.createElement("tr");
+        cuerpo.appendChild(fila);
+        item.forEach(e => {
+            const tr = document.createElement("td");
+            tr.textContent=e;
+            fila.appendChild(tr);
+        });
+     } 
+}
+rellenarTabla (filas, cabecera);
+
+</script>
+</html>
