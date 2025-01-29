@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen recuperacion</title>
+    <link rel="shortcut icon" href="https://via.placeholder.com/1" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <h3>Juan Martínez Martinez 2DAW</h3>
+    </header>
+    <div class="container d-flex">
+        <div class="container col-8">
+            <form class="border p-5 m-2">
+                <h3>Creacion de tareas</h3>
+                <div class="mb-3">
+                    <!-- el titulo tiene que tener entre 10-50 caracteres y solo puede haber tareas con un mismo titulo -->
+                    <label for="titulo" class="form-label">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Titulo de la Tarea">
+                    <p class="text-danger tituloV valida"></p>
+                </div>
+                <div class="mb-3">
+                    <!-- la fecha no puede ser anterior al dia actual -->
+                    <label for="vencimiento" class="form-label">Fecha de vencimiento</label>
+                    <input type="date" class="form-control" id="vencimiento">
+                    <p class="text-danger venceV valida"></p>
+
+                </div>
+                <div class="mb-3">
+                    <p>Prioridad:</p>
+                    <p class="text-danger prioridadV valida"></p>
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input prioridad" id="alta" name="prioridad">
+                        <label class="form-check-label" for="alta">Alta</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input prioridad" id="media" name="prioridad">
+                        <label class="form-check-label" for="media">Media</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input prioridad" id="baja" name="prioridad">
+                        <label class="form-check-label" for="baja">Baja</label>
+                    </div>
+                </div>
+                <button class="btn btn-primary aniadir">Añadir Tarea</button>
+            </form>
+        </div>
+        <div class="col-4">
+            <h2>Panel lateral</h2>
+            <p><b>Titulo:</b> <span class="tituloL">Previo</span></p>
+            <p><b>Fecha vencimiento:</b> <span class="venceL">Previo</span></p>
+            <p><b>Prioridad:</b> <span class="prioridadL">Previo</span></p>
+            <p><b>Creacion:</b> <span class="creacionL">Previo</span></p>
+            <!-- Boton que al pulsar se muestren las tareas en la consola -->
+            <button class="btn btn-success consola">Mostrar Consola</button>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- div con tareas ordenadas por prioridad (solo las pendientes) -->
+    <h2>Tareas pendientes:</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4 listaTareas" id="cardContainer">
+    </div>
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="JMM.js"></script>
+
+</html>
