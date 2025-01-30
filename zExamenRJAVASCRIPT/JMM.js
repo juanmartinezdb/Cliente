@@ -56,6 +56,7 @@ const validacion = () => {
     console.log(vencimiento.value);
 
     const vence = new Date(vencimiento.value);
+console.log(vence);
 
 
     if (vence <= hoy) {
