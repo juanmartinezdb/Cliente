@@ -7,7 +7,7 @@ import { Sucursal } from '../model/sucursal.model';
   providedIn: 'root'
 })
 
-export class DatosServiceService {
+export class DatosService {
 
   private predefinidas : Predefinida[] = [
        // 🔵 REGISTROS ORDINARIOS
