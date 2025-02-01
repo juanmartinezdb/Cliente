@@ -1,0 +1,12 @@
+<nav class="bg-gray-800 p-4">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="text-white font-bold text-xl">{{ title }}</div>
+    <div class="space-x-4">
+      <a routerLink="/registro" class="text-gray-300 hover:text-white">Registrar Suceso</a>
+      <a routerLink="/listado" class="text-gray-300 hover:text-white">Listado de Sucesos</a>
+    </div>
+  </div>
+</nav>
+<div class="p-4">
+  <router-outlet></router-outlet>
+</div>

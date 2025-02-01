@@ -1,0 +1,86 @@
+<div class="max-w-4xl mx-auto p-6">
+    <!-- Banner superior -->
+    <div class="mb-8">
+      <img src="assets/hotel-banner.jpg" alt="Hotel Refinado" class="w-full rounded-lg shadow-lg">
+    </div>
+  
+    <!-- Contenedor del formulario -->
+    <div class="bg-white shadow rounded-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+        Registrar Suceso e Incidencia
+      </h2>
+  
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Empleado -->
+        <div class="mb-4">
+          <label for="empleado" class="block text-gray-700 font-semibold">Empleado:</label>
+          <select id="empleado" formControlName="empleado" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+            <option value="">Seleccione un empleado</option>
+            <option *ngFor="let emp of empleados" [ngValue]="emp">{{ emp.nombre }}</option>
+          </select>
+          <div *ngIf="registroForm.get('empleado')?.invalid && registroForm.get('empleado')?.touched" class="text-red-500 text-sm">
+            Seleccione un empleado.
+          </div>
+        </div>
+  
+        <!-- Cliente -->
+        <div class="mb-4">
+          <label for="cliente" class="block text-gray-700 font-semibold">Cliente:</label>
+          <input type="text" id="cliente" formControlName="cliente" placeholder="Nombre del cliente"
+                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <div *ngIf="registroForm.get('cliente')?.invalid && registroForm.get('cliente')?.touched" class="text-red-500 text-sm">
+            Introduce el nombre del cliente.
+          </div>
+        </div>
+  
+        <!-- Fecha del suceso -->
+        <div class="mb-4">
+          <label for="fechaEvento" class="block text-gray-700 font-semibold">Fecha del suceso:</label>
+          <input type="date" id="fechaEvento" formControlName="fechaEvento"
+                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <div *ngIf="registroForm.get('fechaEvento')?.invalid && registroForm.get('fechaEvento')?.touched" class="text-red-500 text-sm">
+            Selecciona una fecha.
+          </div>
+        </div>
+  
+        <!-- Título -->
+        <div class="mb-4">
+          <label for="titulo" class="block text-gray-700 font-semibold">Título:</label>
+          <input type="text" id="titulo" formControlName="titulo" placeholder="Título del suceso"
+                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+          <div *ngIf="registroForm.get('titulo')?.invalid && registroForm.get('titulo')?.touched" class="text-red-500 text-sm">
+            El título es obligatorio (mínimo 3 caracteres).
+          </div>
+        </div>
+  
+        <!-- Descripción -->
+        <div class="mb-4">
+          <label for="descripcion" class="block text-gray-700 font-semibold">Descripción:</label>
+          <textarea id="descripcion" formControlName="descripcion" placeholder="Detalles del suceso"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"></textarea>
+          <div *ngIf="registroForm.get('descripcion')?.invalid && registroForm.get('descripcion')?.touched" class="text-red-500 text-sm">
+            La descripción es obligatoria.
+          </div>
+        </div>
+  
+        <!-- Categoría -->
+        <div class="mb-6">
+          <span class="block text-gray-700 font-semibold mb-2">Categoría:</span>
+          <div class="flex items-center space-x-6">
+            <div *ngFor="let cat of categorias" class="flex items-center">
+              <input type="radio" [value]="cat.value" formControlName="categoria" id="cat-{{cat.value}}"
+                     class="form-radio h-5 w-5 text-blue-600">
+              <label for="cat-{{cat.value}}" class="ml-2 text-gray-700">{{ cat.label }}</label>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Botón de envío -->
+        <button type="submit" [disabled]="registroForm.invalid"
+                class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors">
+          Registrar suceso
+        </button>
+      </form>
+    </div>
+  </div>
+  

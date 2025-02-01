@@ -1,0 +1,54 @@
+<div class="max-w-4xl mx-auto p-6">
+    <!-- Banner superior para el listado -->
+    <div class="mb-8">
+      <img src="assets/hotel-events.jpg" alt="Eventos del Hotel" class="w-full rounded-lg shadow-lg">
+    </div>
+  
+    <!-- Contenedor del listado -->
+    <div class="bg-white shadow rounded-lg p-8">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+        Incidencias y Eventos Registrados
+      </h2>
+  
+      <!-- Filtro por categoría -->
+      <div class="mb-6">
+        <label class="block text-gray-700 font-semibold mb-2">Filtrar por categoría:</label>
+        <select [(ngModel)]="filtro" (change)="filtrar()"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+          <option value="">Todos</option>
+          <option value="log">Log</option>
+          <option value="warn">Warn</option>
+          <option value="error">Error</option>
+        </select>
+      </div>
+  
+      <!-- Listado de registros -->
+      <ul class="divide-y divide-gray-200">
+        <li *ngFor="let reg of registros" class="py-4 flex items-center">
+          <!-- Icono según categoría -->
+          <div class="flex-shrink-0 mr-4">
+            <img *ngIf="reg.categoria === 'log'" src="assets/icon-log.png" alt="Log" class="h-10 w-10">
+            <img *ngIf="reg.categoria === 'warn'" src="assets/icon-warn.png" alt="Warn" class="h-10 w-10">
+            <img *ngIf="reg.categoria === 'error'" src="assets/icon-error.png" alt="Error" class="h-10 w-10">
+          </div>
+          <!-- Información del registro -->
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800">{{ reg.titulo }}</h3>
+            <p class="text-gray-600">{{ reg.descripcion }}</p>
+            <small class="text-gray-500">Registrado el: {{ reg.fechaCreacion | date:'short' }}</small>
+          </div>
+        </li>
+      </ul>
+  
+      <!-- Contador de registros -->
+      <div class="mt-8 bg-gray-50 p-4 rounded-lg shadow-inner">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Contadores</h3>
+        <div class="flex justify-between">
+          <p class="text-gray-700 font-semibold">Logs: {{ contarPorCategoria().log }}</p>
+          <p class="text-gray-700 font-semibold">Warns: {{ contarPorCategoria().warn }}</p>
+          <p class="text-gray-700 font-semibold">Errors: {{ contarPorCategoria().error }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

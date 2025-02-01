@@ -1,0 +1,37 @@
+<h2 class="text-center mb-4">Listado de Registros</h2>
+
+<div class="accordion" id="accordionRegistros">
+  <div class="accordion-item" *ngFor="let reg of registros; let i = index">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#registro' + i">
+        <i [ngClass]="{
+          'bi bi-clipboard-check text-primary me-2': reg.categoria === 'registro',
+          'bi bi-exclamation-triangle-fill text-warning me-2': reg.categoria === 'incidencia',
+          'bi bi-exclamation-diamond-fill text-danger me-2': reg.categoria === 'alerta'
+        }"></i>
+        <strong>{{ reg.habitacionC }} - {{ reg.tituloE }}</strong>
+      </button>
+    </h2>
+    <div [id]="'registro' + i" class="accordion-collapse collapse" data-bs-parent="#accordionRegistros">
+      <div class="accordion-body">
+        <p><strong>Descripción:</strong> {{ reg.descripcionE }}</p>
+        <p><strong>Fecha:</strong> {{ reg.fechaE }} - <strong>Hora:</strong> {{ reg.horaE }}</p>
+        <p class="text-muted"><strong>Fecha Creación:</strong> {{ reg.fechaCreacion }}</p>
+        <hr>
+        <h6>Datos del Empleado</h6>
+        <p><strong>Nombre:</strong> {{ reg.empleado }}</p>
+        <hr>
+        <h6>Datos del Cliente</h6>
+        <p><strong>Nombre:</strong> {{ reg.nombreC }}</p>
+        <p><strong>Apellidos:</strong> {{ reg.apellidoC }}</p>
+        <hr>
+        <h6>Datos del Hotel</h6>
+        <p><strong>Sucursal:</strong> {{ reg.hotel }}</p>
+        <button class="btn btn-outline-danger btn-sm" (click)="onEliminar(reg)">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
