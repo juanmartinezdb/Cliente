@@ -10,7 +10,7 @@ import { Sucursal } from '../model/sucursal.model';
 export class DatosService {
 
   private predefinidas : Predefinida[] = [
-       // 🔵 REGISTROS ORDINARIOS
+       //  REGISTROS ORDINARIOS
        { tipo: 'registro', nombre: 'Revisión de minibar', descripcion: 'El minibar necesita reposición de bebidas y snacks.' },
        { tipo: 'registro', nombre: 'Cambio de toallas', descripcion: 'El huésped ha solicitado un cambio de toallas en su habitación.' },
        { tipo: 'registro', nombre: 'Limpieza programada', descripcion: 'Limpieza diaria programada en la habitación del huésped.' },
@@ -27,7 +27,7 @@ export class DatosService {
        { tipo: 'registro', nombre: 'Revisión de gimnasio', descripcion: 'Mantenimiento y limpieza de equipos en el gimnasio del hotel.' },
        { tipo: 'registro', nombre: 'Control de ruidos en zonas comunes', descripcion: 'Supervisión de nivel de ruido en pasillos y áreas comunes.' },
    
-       // ⚠️ INCIDENCIAS
+       //  INCIDENCIAS
        { tipo: 'incidencia', nombre: 'Avería en aire acondicionado', descripcion: 'El aire acondicionado de la habitación no funciona correctamente.' },
        { tipo: 'incidencia', nombre: 'Televisión sin señal', descripcion: 'El huésped reporta que la televisión no tiene señal o no enciende.' },
        { tipo: 'incidencia', nombre: 'Fuga de agua en baño', descripcion: 'Se ha detectado una fuga de agua en el baño de la habitación.' },
@@ -44,7 +44,7 @@ export class DatosService {
        { tipo: 'incidencia', nombre: 'Baño atascado', descripcion: 'Se ha detectado un problema de obstrucción en el baño.' },
        { tipo: 'incidencia', nombre: 'Puerta de habitación dañada', descripcion: 'La cerradura o la puerta presenta problemas de funcionamiento.' },
    
-       // 🚨 ALERTAS
+       //  ALERTAS
        { tipo: 'alerta', nombre: 'Emergencia médica de huésped', descripcion: 'Un huésped requiere asistencia médica urgente.' },
        { tipo: 'alerta', nombre: 'Corte de energía en el hotel', descripcion: 'Se ha producido un apagón en varias áreas del hotel.' },
        { tipo: 'alerta', nombre: 'Discusión fuerte en habitación', descripcion: 'Se reporta una pelea o altercado dentro de una habitación.' },
